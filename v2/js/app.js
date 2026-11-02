@@ -869,6 +869,7 @@
   }
   function applyStatic() {
     document.documentElement.lang = lang;
+    $("langBtn").textContent = t("lang_btn"); $("langBtn").setAttribute("aria-label", t("lang_label")); $("langBtn").title = t("lang_label");
     qsa("[data-i18n-ph]").forEach(function (e) { e.placeholder = t(e.dataset.i18nPh); });
     qsa("[data-i18n-aria]").forEach(function (e) { e.setAttribute("aria-label", t(e.dataset.i18nAria)); });
     qsa(".carsel").forEach(fillCarSel);
