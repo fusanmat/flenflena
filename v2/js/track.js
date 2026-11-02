@@ -17,7 +17,7 @@
   function secs() { return Math.round((Date.now() - t0) / 1000); }
 
   var session = null;
-  if (SHEET) {
+  if (SHEET && cfg.USE_SESSION_ID) {
     try {
       session = sessionStorage.getItem("ff_session");
       if (!session) {

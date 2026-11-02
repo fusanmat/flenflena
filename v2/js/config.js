@@ -6,7 +6,8 @@ window.FF_CONFIG = {
   UMAMI_SCRIPT_URL: "https://cloud.umami.is/script.js",
   // Métricas a Google Sheets (Apps Script, ver tools/apps-script.gs). Vacío = solo consola.
   // Si se rellena, se usa esto y no Umami.
-  SHEET_ENDPOINT: "",
+  SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycbx7S6x-_nl03Rj6QYp78ePDYIxOHUlPuoCUAyBgnMmM1-jbc8Cmeb-NN3ijqnc-X7v87A/exec",
+  USE_SESSION_ID: false, // false = no se guarda nada en el navegador; eventos sin enlazar por visita
   HEARTBEAT_S: 15,       // latido cada 15 s con la pestaña visible…
   HEARTBEAT_MAX_S: 300,  // …hasta 5 minutos
 
