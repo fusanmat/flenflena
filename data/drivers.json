@@ -1,0 +1,33 @@
+{
+  "_note": "Rutas de conductores SIMULADOS para la demo del prototipo. No son personas ni viajes reales.",
+  "campuses": {
+    "vera":      { "name": "UPV · Campus de Vera",            "lat": 39.48085, "lng": -0.34203 },
+    "blasco":    { "name": "UV · Campus de Blasco Ibáñez",    "lat": 39.47957, "lng": -0.36334 },
+    "tarongers": { "name": "UV · Campus dels Tarongers",      "lat": 39.47775, "lng": -0.34262 },
+    "burjassot": { "name": "UV · Campus de Burjassot-Paterna","lat": 39.50740, "lng": -0.41984 }
+  },
+  "drivers": [
+    { "id": "D01", "from": "Benimaclet",            "lat": 39.4863, "lng": -0.3596, "to": "vera",      "depart": "07:50", "seats": 3, "car": "petrol" },
+    { "id": "D02", "from": "Russafa",               "lat": 39.4627, "lng": -0.3735, "to": "vera",      "depart": "08:00", "seats": 2, "car": "hybrid" },
+    { "id": "D03", "from": "Campanar",              "lat": 39.4810, "lng": -0.3975, "to": "blasco",    "depart": "08:15", "seats": 3, "car": "diesel" },
+    { "id": "D04", "from": "Patraix",               "lat": 39.4602, "lng": -0.3925, "to": "vera",      "depart": "07:45", "seats": 3, "car": "petrol" },
+    { "id": "D05", "from": "Plaça de l'Ajuntament", "lat": 39.4699, "lng": -0.3763, "to": "tarongers", "depart": "08:20", "seats": 2, "car": "ev" },
+    { "id": "D06", "from": "El Cabanyal",           "lat": 39.4680, "lng": -0.3290, "to": "vera",      "depart": "08:30", "seats": 3, "car": "petrol" },
+    { "id": "D07", "from": "Mislata",               "lat": 39.4757, "lng": -0.4167, "to": "burjassot", "depart": "08:05", "seats": 3, "car": "diesel" },
+    { "id": "D08", "from": "Paterna",               "lat": 39.5028, "lng": -0.4405, "to": "vera",      "depart": "07:40", "seats": 3, "car": "suv" },
+    { "id": "D09", "from": "Burjassot",             "lat": 39.5096, "lng": -0.4136, "to": "blasco",    "depart": "08:00", "seats": 2, "car": "petrol" },
+    { "id": "D10", "from": "Torrent",               "lat": 39.4372, "lng": -0.4654, "to": "vera",      "depart": "07:30", "seats": 3, "car": "diesel" },
+    { "id": "D11", "from": "Alboraia",              "lat": 39.5000, "lng": -0.3510, "to": "tarongers", "depart": "08:10", "seats": 3, "car": "hybrid" },
+    { "id": "D12", "from": "Moncada",               "lat": 39.5450, "lng": -0.3953, "to": "burjassot", "depart": "08:00", "seats": 2, "car": "petrol" },
+    { "id": "D13", "from": "Manises",               "lat": 39.4930, "lng": -0.4610, "to": "burjassot", "depart": "08:20", "seats": 3, "car": "ev" },
+    { "id": "D14", "from": "Quart de Poblet",       "lat": 39.4810, "lng": -0.4400, "to": "vera",      "depart": "07:55", "seats": 3, "car": "petrol" },
+    { "id": "D15", "from": "Xirivella",             "lat": 39.4660, "lng": -0.4270, "to": "blasco",    "depart": "08:10", "seats": 2, "car": "diesel" },
+    { "id": "D16", "from": "Benicalap",             "lat": 39.4960, "lng": -0.3950, "to": "burjassot", "depart": "08:30", "seats": 3, "car": "petrol" },
+    { "id": "D17", "from": "Malilla",               "lat": 39.4520, "lng": -0.3740, "to": "tarongers", "depart": "08:45", "seats": 3, "car": "hybrid" },
+    { "id": "D18", "from": "Godella",               "lat": 39.5200, "lng": -0.4110, "to": "vera",      "depart": "08:00", "seats": 2, "car": "suv" },
+    { "id": "D19", "from": "Alfafar",               "lat": 39.4220, "lng": -0.3890, "to": "blasco",    "depart": "07:50", "seats": 3, "car": "petrol" },
+    { "id": "D20", "from": "Extramurs",             "lat": 39.4660, "lng": -0.3840, "to": "vera",      "depart": "16:30", "seats": 3, "car": "ev" },
+    { "id": "D21", "from": "Ciutat Vella",          "lat": 39.4760, "lng": -0.3770, "to": "tarongers", "depart": "17:15", "seats": 2, "car": "petrol" },
+    { "id": "D22", "from": "Benimàmet",             "lat": 39.4950, "lng": -0.4240, "to": "burjassot", "depart": "18:00", "seats": 3, "car": "diesel" }
+  ]
+}

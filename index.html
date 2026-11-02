@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flenflena · prototipo (MUGEPS, UPV)</title>
+<meta name="description" content="Prototipo académico: comparte el camino al campus y paga solo tu parte. Conductores y precios ficticios.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="banner" role="note">
+  <p><strong data-i18n="banner">Prototipo de prueba de un proyecto del máster MUGEPS (UPV). Flenflena aún no funciona: conductores y precios son ficticios.</strong>
+  <span class="banner-team" data-i18n="banner_team">Equipo Flenflena · Máster MUGEPS · Contacto: TODO</span></p>
+</div>
+
+<header class="top">
+  <a class="wordmark" href="#" aria-label="Flenflena">
+    <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#2463FF"/><path d="M11 25c4-9 14-1 18-10" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="11" cy="25" r="3" fill="#0EBE76"/><circle cx="29" cy="15" r="3" fill="#0EBE76"/></svg>
+    <span>flenflena</span>
+  </a>
+  <nav class="nav">
+    <a href="#how" data-i18n="nav_how">Cómo funciona</a>
+    <a href="#demo" data-i18n="nav_demo">Demo</a>
+    <a href="#faq" data-i18n="nav_faq">Preguntas</a>
+  </nav>
+  <button class="lang" id="langBtn" type="button" aria-label="Switch to English" data-i18n="lang_btn">EN</button>
+  <a class="btn btn-small" href="#join" id="headerCta" data-i18n="header_cta">Quiero probarlo</a>
+</header>
+
+<main>
+<section class="hero">
+  <h1 data-i18n="hero_title">Comparte el camino a la UPV con gente de tu comunidad. Pagas solo tu parte.</h1>
+  <p class="hero-sub" id="heroSub"></p>
+  <a class="btn" href="#demo" id="heroCta" data-i18n="hero_cta">Calcula tu trayecto</a>
+  <p class="muted small" data-i18n="hero_note"></p>
+</section>
+
+<section id="how" class="section">
+  <h2 data-i18n="how_title">Cómo funciona</h2>
+  <ol class="steps">
+    <li><span class="num">1</span><h3 data-i18n="how1_t"></h3><p data-i18n="how1_d"></p></li>
+    <li><span class="num">2</span><h3 data-i18n="how2_t"></h3><p data-i18n="how2_d"></p></li>
+    <li><span class="num">3</span><h3 data-i18n="how3_t"></h3><p data-i18n="how3_d"></p></li>
+  </ol>
+</section>
+
+<section id="demo" class="section">
+  <h2 data-i18n="demo_title">Prueba la demo</h2>
+  <p class="muted" data-i18n="demo_sub"></p>
+  <div class="demo">
+    <form class="panel" id="demoForm" autocomplete="off">
+      <div class="field place">
+        <label for="originInput" data-i18n="origin">Origen</label>
+        <input id="originInput" type="text" data-i18n-ph="ph_place" aria-autocomplete="list" aria-controls="originList">
+        <ul class="suggest" id="originList" role="listbox" hidden></ul>
+        <button type="button" class="link" id="geoBtn" data-i18n="use_location">Usar mi ubicación</button>
+      </div>
+      <div class="field place">
+        <label for="destInput" data-i18n="destination">Destino</label>
+        <input id="destInput" type="text" data-i18n-ph="ph_place" aria-autocomplete="list" aria-controls="destList">
+        <ul class="suggest" id="destList" role="listbox" hidden></ul>
+        <div class="chips"><span class="small muted" data-i18n="quick_dest"></span>
+          <button type="button" class="chip" data-campus="vera">Vera</button>
+          <button type="button" class="chip" data-campus="blasco">Blasco Ibáñez</button>
+          <button type="button" class="chip" data-campus="tarongers">Tarongers</button>
+          <button type="button" class="chip" data-campus="burjassot">Burjassot</button>
+        </div>
+      </div>
+      <div class="clickmode small"><span data-i18n="click_sets"></span>
+        <label><input type="radio" name="clickmode" value="origin" checked> <span data-i18n="origin"></span></label>
+        <label><input type="radio" name="clickmode" value="dest"> <span data-i18n="destination"></span></label>
+      </div>
+      <div class="row3">
+        <div class="field"><label for="carSel" data-i18n="car_type"></label>
+          <select id="carSel">
+            <option value="petrol" data-i18n="car_petrol"></option><option value="diesel" data-i18n="car_diesel"></option>
+            <option value="hybrid" data-i18n="car_hybrid"></option><option value="ev" data-i18n="car_ev"></option>
+            <option value="suv" data-i18n="car_suv"></option>
+          </select></div>
+        <div class="field"><label for="slotSel" data-i18n="slot"></label>
+          <select id="slotSel">
+            <option value="am_peak" data-i18n="slot_am_peak"></option><option value="midday" data-i18n="slot_midday"></option>
+            <option value="afternoon" data-i18n="slot_afternoon"></option><option value="pm_peak" data-i18n="slot_pm_peak"></option>
+            <option value="night" data-i18n="slot_night"></option>
+          </select></div>
+        <div class="field"><label for="paxSel" data-i18n="pax"></label>
+          <select id="paxSel"><option>1</option><option>2</option><option>3</option></select></div>
+      </div>
+      <button class="btn wide" type="submit" id="searchBtn" data-i18n="search_btn">Buscar trayecto</button>
+      <p class="status small" id="status" role="status" aria-live="polite"></p>
+    </form>
+    <div class="mapwrap">
+      <div id="map" aria-label="Mapa"></div>
+      <div class="legend small"><span class="l-you"></span><span data-i18n="legend_you"></span> <span class="l-drv"></span><span data-i18n="legend_driver"></span></div>
+    </div>
+  </div>
+
+  <div class="result" id="result" hidden>
+    <div class="card driver">
+      <p class="tag" data-i18n="driver_label">Conductor simulado (demo)</p>
+      <p id="driverLine"></p>
+      <p id="detourLine" class="muted"></p>
+      <p id="tripLine" class="muted"></p>
+    </div>
+    <div class="card fare">
+      <p class="small muted" data-i18n="fare_title"></p>
+      <p class="price" id="farePrice"></p>
+      <p class="small" id="fareFormula"></p>
+      <p class="small muted" id="fareNote"></p>
+      <button class="btn wide green" type="button" id="reserveBtn"></button>
+    </div>
+  </div>
+</section>
+
+<section id="join" class="section">
+  <h2 data-i18n="join_title">Apúntate a la prueba</h2>
+  <p class="muted" data-i18n="join_sub"></p>
+  <form id="joinForm" class="panel join" novalidate autocomplete="off">
+    <div class="row2">
+      <div class="field"><label for="fName" data-i18n="f_name"></label><input id="fName" type="text" required maxlength="80"><span class="err" id="eName"></span></div>
+      <div class="field"><label for="fEmail" data-i18n="f_email"></label><input id="fEmail" type="email" required maxlength="120"><span class="err" id="eEmail"></span></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="fRole" data-i18n="f_role"></label>
+        <select id="fRole"><option value="" data-i18n="role_none"></option><option value="student" data-i18n="role_student"></option><option value="teacher" data-i18n="role_teacher"></option><option value="staff" data-i18n="role_staff"></option><option value="na" data-i18n="role_na"></option></select></div>
+      <div class="field"><label for="fSex" data-i18n="f_sex"></label>
+        <select id="fSex"><option value="" data-i18n="sex_none"></option><option value="f" data-i18n="sex_f"></option><option value="m" data-i18n="sex_m"></option><option value="o" data-i18n="sex_o"></option><option value="na" data-i18n="sex_na"></option></select>
+        <span class="small muted" data-i18n="f_sex_why"></span></div>
+    </div>
+    <fieldset class="survey">
+      <legend data-i18n="survey_title"></legend>
+      <div class="row2">
+        <div class="field"><label for="qMode" data-i18n="q_mode"></label>
+          <select id="qMode"><option value="" data-i18n="any"></option><option value="car_alone" data-i18n="mode_car_alone"></option><option value="car_shared" data-i18n="mode_car_shared"></option><option value="metro" data-i18n="mode_metro"></option><option value="bus" data-i18n="mode_bus"></option><option value="bike" data-i18n="mode_bike"></option><option value="walk" data-i18n="mode_walk"></option><option value="other" data-i18n="mode_other"></option></select></div>
+        <div class="field"><label for="qDays" data-i18n="q_days"></label>
+          <select id="qDays"><option value="" data-i18n="any"></option><option>1</option><option>2</option><option>3</option><option>4</option><option value="5plus">5+</option></select></div>
+        <div class="field"><label for="qSpend" data-i18n="q_spend"></label>
+          <select id="qSpend"><option value="" data-i18n="any"></option><option value="lt20" data-i18n="spend_lt20"></option><option value="20_40" data-i18n="spend_20_40"></option><option value="40_70" data-i18n="spend_40_70"></option><option value="70_100" data-i18n="spend_70_100"></option><option value="gt100" data-i18n="spend_gt100"></option><option value="dk" data-i18n="spend_dk"></option></select></div>
+        <div class="field"><label for="qPay" data-i18n="q_pay"></label>
+          <select id="qPay"><option value="" data-i18n="any"></option><option value="trip" data-i18n="pay_trip"></option><option value="pass" data-i18n="pay_pass"></option><option value="any" data-i18n="pay_any"></option></select></div>
+        <div class="field"><label for="qCheap" data-i18n="q_cheap"></label>
+          <select id="qCheap" class="pricesel"></select></div>
+        <div class="field"><label for="qExp" data-i18n="q_expensive"></label>
+          <select id="qExp" class="pricesel"></select></div>
+      </div>
+    </fieldset>
+    <label class="check"><input id="fAdult" type="checkbox" required> <span data-i18n="f_adult"></span></label>
+    <span class="err" id="eAdult"></span>
+    <button class="btn wide" type="submit" data-i18n="submit">Apuntarme</button>
+  </form>
+  <div class="thanks card" id="thanks" hidden tabindex="-1"><p data-i18n="thanks"></p></div>
+</section>
+
+<section id="privacy" class="section">
+  <h2 data-i18n="privacy_title">Privacidad, en corto</h2>
+  <ul class="plist"><li data-i18n="p1"></li><li data-i18n="p2"></li><li data-i18n="p3"></li><li data-i18n="p4"></li><li data-i18n="p5"></li></ul>
+</section>
+
+<section id="faq" class="section">
+  <h2 data-i18n="faq_title">Preguntas frecuentes</h2>
+  <details><summary data-i18n="faq1_q"></summary><p data-i18n="faq1_a"></p></details>
+  <details><summary data-i18n="faq2_q"></summary><p data-i18n="faq2_a"></p></details>
+  <details><summary data-i18n="faq3_q"></summary><p data-i18n="faq3_a"></p></details>
+  <details><summary data-i18n="faq4_q"></summary><p data-i18n="faq4_a"></p></details>
+</section>
+</main>
+
+<footer class="foot">
+  <p data-i18n="footer"></p>
+  <p class="small muted" data-i18n="footer_credits"></p>
+</footer>
+
+<dialog id="door" class="door">
+  <p class="door-title" data-i18n="door_title">Flenflena aún no existe; no hemos guardado nada. ¿Te avisamos?</p>
+  <div class="door-actions">
+    <button class="btn green" type="button" id="doorYes" data-i18n="door_yes"></button>
+    <button class="btn ghost" type="button" id="doorNo" data-i18n="door_no"></button>
+  </div>
+</dialog>
+
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/track.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
