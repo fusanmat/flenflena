@@ -1,0 +1,65 @@
+{
+ "_note": "Distancias por carretera calculadas con OSRM (router.project-osrm.org) el 2026-11-02 entre los puntos de places.json.",
+ "routes": [
+  {
+   "from": "puig",
+   "to": "upv",
+   "km": 16.1
+  },
+  {
+   "from": "sag",
+   "to": "upv",
+   "km": 26.7
+  },
+  {
+   "from": "pucol",
+   "to": "uvt",
+   "km": 18.4
+  },
+  {
+   "from": "mass",
+   "to": "ceu",
+   "km": 7.0
+  },
+  {
+   "from": "torr",
+   "to": "uvb",
+   "km": 13.0
+  },
+  {
+   "from": "pat",
+   "to": "uvbp",
+   "km": 2.9
+  },
+  {
+   "from": "manis",
+   "to": "upv",
+   "km": 14.1
+  },
+  {
+   "from": "cata",
+   "to": "uvb",
+   "km": 12.8
+  },
+  {
+   "from": "betera",
+   "to": "uvbp",
+   "km": 17.2
+  },
+  {
+   "from": "ruz",
+   "to": "upv",
+   "km": 5.1
+  },
+  {
+   "from": "camp",
+   "to": "ceu",
+   "km": 8.9
+  },
+  {
+   "from": "ribar",
+   "to": "uvbp",
+   "km": 16.9
+  }
+ ]
+}

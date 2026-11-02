@@ -1,0 +1,324 @@
+{
+ "_note": "Conductores de ejemplo (datos inventados).",
+ "trips": [
+  {
+   "id": 1,
+   "name": "Lucía",
+   "role": {
+    "es": "Estudiante · ADE",
+    "en": "Student · Business"
+   },
+   "uni": "upv",
+   "model": "Seat Ibiza",
+   "type": "petrol",
+   "time": "07:40",
+   "cap": 3,
+   "route": [
+    "puig",
+    "mass",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Carlos",
+     "up": 1,
+     "down": 2
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "Javier",
+   "role": {
+    "es": "Profesor · Economía",
+    "en": "Lecturer · Economics"
+   },
+   "uni": "uv",
+   "model": "Toyota Corolla",
+   "type": "hybrid",
+   "time": "07:45",
+   "cap": 3,
+   "route": [
+    "torr",
+    "alaq",
+    "uvt"
+   ],
+   "pax": [
+    {
+     "name": "Inés",
+     "up": 1,
+     "down": 2
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "Marta",
+   "role": {
+    "es": "Personal · Biblioteca",
+    "en": "Staff · Library"
+   },
+   "uni": "upv",
+   "model": "Kia Niro",
+   "type": "hybrid",
+   "time": "07:20",
+   "cap": 3,
+   "route": [
+    "sag",
+    "pucol",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Rubén",
+     "up": 1,
+     "down": 2
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "Andrés",
+   "role": {
+    "es": "Estudiante · Medicina",
+    "en": "Student · Medicine"
+   },
+   "uni": "ceu",
+   "model": "Renault Clio",
+   "type": "petrol",
+   "time": "07:45",
+   "cap": 3,
+   "route": [
+    "ruz",
+    "bmc",
+    "ceu"
+   ],
+   "pax": [
+    {
+     "name": "Lara",
+     "up": 1,
+     "down": 2
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "Sofía",
+   "role": {
+    "es": "Estudiante · Química",
+    "en": "Student · Chemistry"
+   },
+   "uni": "uv",
+   "model": "Peugeot 208",
+   "type": "petrol",
+   "time": "07:50",
+   "cap": 3,
+   "route": [
+    "pat",
+    "burj",
+    "uvbp"
+   ],
+   "pax": []
+  },
+  {
+   "id": 6,
+   "name": "Elena",
+   "role": {
+    "es": "Profesora · Ing. Industrial",
+    "en": "Lecturer · Industrial Eng."
+   },
+   "uni": "upv",
+   "model": "Hyundai Kona",
+   "type": "ev",
+   "time": "07:35",
+   "cap": 4,
+   "route": [
+    "betera",
+    "monc",
+    "upv"
+   ],
+   "pax": []
+  },
+  {
+   "id": 7,
+   "name": "Pablo",
+   "role": {
+    "es": "Estudiante · Derecho",
+    "en": "Student · Law"
+   },
+   "uni": "uv",
+   "model": "Ford Fiesta",
+   "type": "petrol",
+   "time": "07:35",
+   "cap": 3,
+   "route": [
+    "cata",
+    "alfaf",
+    "uvb"
+   ],
+   "pax": [
+    {
+     "name": "Noelia",
+     "up": 1,
+     "down": 2
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "Irene",
+   "role": {
+    "es": "Estudiante · Teleco",
+    "en": "Student · Telecoms"
+   },
+   "uni": "upv",
+   "model": "VW Polo",
+   "type": "petrol",
+   "time": "07:40",
+   "cap": 3,
+   "route": [
+    "manis",
+    "quart",
+    "misl",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Álex",
+     "up": 1,
+     "down": 3
+    },
+    {
+     "name": "Paula",
+     "up": 2,
+     "down": 3
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "Hugo",
+   "role": {
+    "es": "Estudiante · Física",
+    "en": "Student · Physics"
+   },
+   "uni": "uv",
+   "model": "Dacia Sandero",
+   "type": "petrol",
+   "time": "07:45",
+   "cap": 3,
+   "route": [
+    "ribar",
+    "eliana",
+    "uvbp"
+   ],
+   "pax": []
+  },
+  {
+   "id": 10,
+   "name": "Nerea",
+   "role": {
+    "es": "Personal · Secretaría",
+    "en": "Staff · Admin office"
+   },
+   "uni": "ceu",
+   "model": "Mazda 2",
+   "type": "petrol",
+   "time": "08:05",
+   "cap": 3,
+   "route": [
+    "mass",
+    "mel",
+    "ceu"
+   ],
+   "pax": []
+  },
+  {
+   "id": 11,
+   "name": "Diego",
+   "role": {
+    "es": "Estudiante · Informática",
+    "en": "Student · Computing"
+   },
+   "uni": "upv",
+   "model": "Opel Corsa",
+   "type": "diesel",
+   "time": "08:20",
+   "cap": 3,
+   "route": [
+    "patr",
+    "cent",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Carla",
+     "up": 1,
+     "down": 2
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "Laura",
+   "role": {
+    "es": "Profesora · Psicología",
+    "en": "Lecturer · Psychology"
+   },
+   "uni": "uv",
+   "model": "Toyota Yaris",
+   "type": "hybrid",
+   "time": "08:00",
+   "cap": 3,
+   "route": [
+    "silla",
+    "alfaf",
+    "mal",
+    "uvb"
+   ],
+   "pax": []
+  }
+ ],
+ "extra": [
+  {
+   "name": "Álvaro",
+   "role": {
+    "es": "Estudiante · Arquitectura",
+    "en": "Student · Architecture"
+   },
+   "uni": "upv",
+   "model": "Seat León",
+   "type": "petrol"
+  },
+  {
+   "name": "Carmen",
+   "role": {
+    "es": "Profesora · Marketing",
+    "en": "Lecturer · Marketing"
+   },
+   "uni": "uv",
+   "model": "Toyota C-HR",
+   "type": "suv"
+  },
+  {
+   "name": "Youssef",
+   "role": {
+    "es": "Estudiante · Máster GEPS",
+    "en": "Student · GEPS master’s"
+   },
+   "uni": "upv",
+   "model": "Skoda Fabia",
+   "type": "diesel"
+  },
+  {
+   "name": "Paula F.",
+   "role": {
+    "es": "Estudiante · Enfermería",
+    "en": "Student · Nursing"
+   },
+   "uni": "ceu",
+   "model": "Citroën C3",
+   "type": "petrol"
+  }
+ ]
+}
