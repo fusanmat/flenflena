@@ -1,4 +1,4 @@
-/* Flenflena v6 · entrada del mapa (rueda y táctil). Funciones puras para poder probarlas sin navegador.
+/* Flenflena · entrada del mapa (rueda y táctil). Funciones puras para poder probarlas sin navegador.
    - Modo cooperativo (un dedo desplaza la página, dos dedos mueven el mapa) SOLO si el dispositivo no
      tiene ningún puntero fino (ratón/trackpad). Un portátil táctil con ratón NO entra en este modo.
    - La rueda sobre cualquier mapa nunca desplaza la página: oyente no pasivo en captura sobre window

@@ -17,9 +17,12 @@
   <header class="nav">
     <div class="wrap">
       <a class="brand" href="#inicio" aria-label="Flenflena">
-        <img src="assets/flenflena_logo_v7.png" alt="" width="40" height="32" class="logo-ic">
-        Flenflena
+        <img src="assets/flenflena_logo_v7_wordmark.png" alt="Flenflena" class="wm" width="62" height="62">
       </a>
+      <div class="acct">
+        <span id="acct-off"><button class="btn ghost sm" id="btn-login" type="button" data-i18n="login"></button> <button class="btn sm" id="btn-signup" type="button" data-i18n="signup"></button></span>
+        <span id="acct-on" hidden><span class="chip g" data-i18n="session_demo"></span> <button class="btn ghost sm" id="btn-logout" type="button" data-i18n="logout"></button></span>
+      </div>
       <button class="lang" id="langBtn" type="button"></button>
       <nav aria-label="Secciones">
         <a href="#inicio" data-v="inicio"><span class="long" data-i18n="nav_home"></span><span class="short" data-i18n="nav_home_s"></span></a>
@@ -37,38 +40,47 @@
   <div class="wrap">
     <div class="hero">
       <div>
-        <img class="wordmark" src="assets/flenflena_logo_v7_wordmark.png" alt="Flenflena" width="177" height="180">
         <span class="eyebrow" data-i18n="eyebrow"></span>
         <h1 data-i18n-html="hero_title"></h1>
+        <p class="tagline" data-i18n-html="tagline"></p>
         <p class="lead" id="heroLead"></p>
-        <p class="trust small" data-i18n="trust"></p>
+        <div class="trustbox"><b data-i18n="trust_t"></b><br><span data-i18n="trust"></span></div>
         <div class="unis"><span class="chip">UPV</span><span class="chip g">UV</span><span class="chip">CEU-UCH</span></div>
       </div>
       <div class="card pad" id="calc">
         <h3 data-i18n="sv_title"></h3>
         <p class="small muted" style="margin:-4px 0 10px" data-i18n="sv_sub"></p>
-        <div class="field addr"><label for="h-from" data-i18n="pick_me"></label>
-          <input type="text" id="h-from" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
-          <select id="h-from-q" aria-label="Lugares frecuentes"></select></div>
-        <div class="field addr"><label for="h-to" data-i18n="go_to"></label>
-          <input type="text" id="h-to" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
-          <select id="h-to-q" aria-label="Lugares frecuentes"></select></div>
+        <div class="row">
+          <div class="field addr"><label for="h-from" data-i18n="pick_me"></label>
+            <input type="text" id="h-from" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
+            <select id="h-from-q" aria-label="Lugares frecuentes"></select></div>
+          <div class="field addr"><label for="h-to" data-i18n="go_to"></label>
+            <input type="text" id="h-to" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
+            <select id="h-to-q" aria-label="Lugares frecuentes"></select></div>
+        </div>
         <details class="opt"><summary data-i18n="sv_opt"></summary>
-          <div class="row">
+          <div class="row3">
             <div class="field"><label for="h-vtc" data-i18n="sv_vtc_in"></label><input type="number" id="h-vtc" min="0" max="200" step="0.5" inputmode="decimal"></div>
+            <div class="field"><label for="h-vtccoef" data-i18n="sv_vtc_coef"></label><input type="number" id="h-vtccoef" min="0.2" max="5" step="0.05" inputmode="decimal"></div>
+            <div class="field"><label for="h-vtcwait" data-i18n="sv_vtc_wait"></label><input type="number" id="h-vtcwait" min="0" max="60" step="1" inputmode="numeric"></div>
+            <div class="field"><label for="h-taxiwait" data-i18n="sv_taxi_wait"></label><input type="number" id="h-taxiwait" min="0" max="60" step="1" inputmode="numeric"></div>
+            <div class="field"><label for="h-flenwait" data-i18n="sv_flen_wait"></label><input type="number" id="h-flenwait" min="0" max="60" step="1" inputmode="numeric"></div>
             <div class="field"><label for="h-emtmin" data-i18n="sv_emt_min"></label><input type="number" id="h-emtmin" min="1" max="240" step="1" inputmode="numeric"></div>
             <div class="field"><label for="h-metromin" data-i18n="sv_metro_min"></label><input type="number" id="h-metromin" min="1" max="240" step="1" inputmode="numeric"></div>
           </div>
         </details>
         <button class="btn block" id="h-calc" type="button" data-i18n="sv_btn"></button>
         <div class="status" id="h-status" aria-live="polite"></div>
+        <div class="headline" id="h-head" aria-live="polite"></div>
+        <div class="tiles" id="h-tiles" role="radiogroup"></div>
         <div id="h-out"></div>
       </div>
     </div>
 
     <h2 style="margin-top:36px" data-i18n="pv_title"></h2>
     <p class="sub" data-i18n="pv_sub"></p>
-    <div class="preview" id="h-preview"></div>
+    <div class="lockwrap"><div class="preview" id="h-preview"></div>
+      <div class="overlay" id="h-overlay"><b data-i18n="ov_t"></b><span class="small" data-i18n="ov_d"></span><span><button class="btn sm" type="button" data-act="signup" data-i18n="signup"></button> <button class="btn ghost sm" type="button" data-act="login" data-i18n="login"></button></span></div></div>
     <p style="margin-top:10px"><a class="btn g" href="#join" id="pv-join" data-i18n="pv_cta"></a> <a class="btn ghost" href="#buscar" data-i18n="pv_search"></a></p>
 
     <h2 style="margin-top:40px" data-i18n="how_title"></h2>
@@ -86,17 +98,19 @@
         <form id="joinForm" novalidate autocomplete="off">
           <div class="row">
             <div class="field"><label for="f-name" data-i18n="f_name"></label><input type="text" id="f-name" maxlength="80"><div class="err" id="e-name"></div></div>
-            <div class="field"><label for="f-email" data-i18n="f_email"></label><input type="email" id="f-email" maxlength="120"><div class="err" id="e-email"></div></div>
+            <div class="field"><label for="f-email" data-i18n="f_email_inst"></label><input type="email" id="f-email" maxlength="120"><div class="err" id="e-email"></div></div>
           </div>
           <div class="row">
             <div class="field"><label for="f-role" data-i18n="f_role"></label>
               <select id="f-role"><option value="" data-i18n="role_none"></option><option value="student" data-i18n="role_student"></option><option value="lecturer" data-i18n="role_teacher"></option><option value="staff" data-i18n="role_staff"></option><option value="na" data-i18n="role_na"></option></select></div>
             <div class="field"><label for="f-uni" data-i18n="f_uni"></label>
-              <select id="f-uni"><option value="" data-i18n="role_none"></option><option value="upv">UPV</option><option value="uv">UV</option><option value="ceu">CEU-UCH</option><option value="other" data-i18n="uni_other"></option><option value="na" data-i18n="role_na"></option></select></div>
+              <select id="f-uni"><option value="" data-i18n="uni_auto"></option><option value="upv">UPV</option><option value="uv">UV</option><option value="ceu">CEU-UCH</option></select></div>
           </div>
           <label class="check"><input type="checkbox" id="f-adult"> <span data-i18n="f_adult"></span></label>
           <div class="err" id="e-adult"></div>
 
+          <p class="tiny muted" id="allow-list"></p>
+          <p class="tiny policy" data-i18n="vf_demo"></p>
           <p class="tiny muted" data-i18n="join_privacy"></p>
           <button class="btn g" type="submit" data-i18n="submit"></button>
         </form>
@@ -190,6 +204,7 @@
     <div class="grid2 buscar" style="margin-top:20px">
       <div class="col-results">
         <div id="s-summary" class="small muted"></div>
+        <div class="card pad lockbar" id="s-lockbar"><b data-i18n="ov_t"></b> <span class="small" data-i18n="ov_d"></span> <button class="btn sm" type="button" data-act="signup" data-i18n="signup"></button> <button class="btn ghost sm" type="button" data-act="login" data-i18n="login"></button></div>
         <div class="results" id="results"></div>
       </div>
       <div class="sticky">
@@ -266,6 +281,7 @@
 </main>
 
 <footer><div class="wrap">
+  <img src="assets/flenflena_logo_v7.png" alt="Flenflena" class="foot-logo" width="40" height="32">
   <p data-i18n="footer"></p>
   <p data-i18n="footer_disclaimer"></p>
   <p data-i18n="footer_credits"></p>
@@ -277,8 +293,9 @@
 <script src="js/mapinput.js"></script>
 <script src="js/config.js"></script>
 <script src="js/i18n.js"></script>
-<script src="js/i18n6.js"></script>
+<script src="js/i18n-extra.js"></script>
 <script src="js/track.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/fare.js"></script>
 <script src="js/savings.js"></script>
 <script src="js/app.js"></script>

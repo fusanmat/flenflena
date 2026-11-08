@@ -1,4 +1,4 @@
-/* Flenflena v6 · motor de tarifas ÚNICO (tarjetas, explicación, reserva, vista de conductor, calculadora de ahorro).
+/* Flenflena · motor de tarifas ÚNICO (tarjetas, explicación, reserva, vista de conductor, calculadora de ahorro).
    Coste del tramo      = km × coste de energía €/km del coche (gasolina, diésel, híbrido, eléctrico; supuestos ilustrativos)
    Parte por persona    = coste del tramo ÷ (pasajeros a bordo + 1 conductor)
    Recuperación conductor = suma de sus partes, redondeada a la baja al céntimo  → nunca supera el coste real del viaje

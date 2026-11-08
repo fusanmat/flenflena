@@ -1,4 +1,4 @@
-/* Flenflena v2 · textos ES/EN. Variables globales: {comm} {min} {cap} {contact} {deletion}. */
+/* Flenflena · textos ES/EN. Variables globales: {comm} {min} {cap} {contact} {deletion}. */
 window.FF_I18N = {
   es: {
     join_privacy: "Solo usamos métricas de uso anónimas, sin cookies. No guardamos nada personal.",

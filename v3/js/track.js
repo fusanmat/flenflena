@@ -1,4 +1,4 @@
-/* Métricas anónimas de Flenflena (v6: apagadas, SHEET_ENDPOINT vacío).
+/* Métricas anónimas de Flenflena (mismos eventos, claves y destino que v2).
    - SHEET_ENDPOINT vacío: track() solo escribe en la consola; no se envía ni se guarda nada.
    - SHEET_ENDPOINT relleno: cada evento se envía con fetch (no-cors, text/plain) a un Apps Script
      que añade una fila a una hoja de cálculo. Al salir se usa navigator.sendBeacon.

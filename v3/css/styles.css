@@ -282,3 +282,36 @@ a.lock{font-size:12px;font-weight:700;white-space:nowrap}
   .searchbar2{grid-template-columns:1fr 1fr}
   .searchbar2 .btn{grid-column:1/-1}
 }
+
+/* ===== v2 completa: portada estilo v5 ===== */
+.nav .wrap{gap:12px}
+.brand .wm{height:62px;width:auto;display:block}
+.acct{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.acct .btn.sm{padding:8px 14px}
+.tagline{color:var(--blue);font-weight:700;margin:-4px 0 8px}
+.trustbox{font-size:13px;background:var(--blue-2);border-radius:12px;padding:14px 16px;color:#24498b;margin:14px 0}
+.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.headline{margin:14px 0 6px;border-radius:14px;padding:0}
+.headline.save,.headline.more,.headline.nodata{padding:14px 16px}
+.headline.save{background:var(--green-2);color:#116841;border:1px solid #c3e8d3}
+.headline.more,.headline.nodata{background:#EEF1F7;color:var(--ink)}
+.headline strong{display:block;font-size:22px;letter-spacing:-.4px}
+.headline span{font-size:12px}
+.tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:8px 0}
+.tile{border:1px solid var(--line);border-radius:12px;padding:10px 8px;background:#fff;font:inherit;font-size:11px;text-align:left;cursor:pointer;color:var(--ink)}
+.tile strong{display:block;font-size:18px;margin:4px 0}
+.tile.on{border:2px solid var(--blue);background:#FAFDFF}
+.tile.best{background:var(--green-2);border-color:var(--green);cursor:default}
+.lockwrap{position:relative}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,.72);border-radius:16px;padding:16px}
+body.signed .overlay,body.signed .lockbar{display:none}
+.lockbar{margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--blue-2)}
+.cancelchip{border:0;cursor:pointer;font:inherit;font-size:12px;font-weight:700}
+.policy{background:#FFF8E6;border:1px solid #F3E2B3;border-radius:10px;padding:8px 10px;color:#7A5B12;margin-top:8px}
+.foot-logo{height:32px;width:auto;display:block;margin-bottom:8px}
+@media (max-width:760px){
+  .brand .wm{height:46px}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .row3{grid-template-columns:1fr 1fr}
+  .headline strong{font-size:18px}
+}

@@ -1,4 +1,4 @@
-/* Flenflena v6 · lógica de la web (sin compilación). Base: v2 (mapa, direcciones, rutas, tarjetas). */
+/* Flenflena · lógica de la web (sin compilación). Base: v2 (mapa, direcciones, rutas, tarjetas). */
 (function () {
   "use strict";
   var CFG = window.FF_CONFIG, I18N = window.FF_I18N, F = window.FFFare, SV = window.FFSavings;
@@ -298,7 +298,9 @@
   /* ======================================================================
      ESTADO GENERAL (solo en memoria; nada en el navegador)
      ====================================================================== */
-  var SIGNED = false;   // registro simulado: desbloquea perfiles hasta recargar
+  // Acceso de miembros: SOLO el servidor decide (js/auth.js). Sin proveedor configurado, siempre bloqueado.
+  var ACCESS = window.FFAuth.createDemoAccess();   // maqueta: desbloqueo de perfiles FICTICIOS solo en memoria
+  function unlocked() { return ACCESS.canSeeMembers(); }
   var QUOTE = null;     // presupuesto fijado al pulsar «Reservar por X €»
   var SLF = CFG.STRAIGHT_LINE_FACTOR;
 
@@ -401,7 +403,7 @@
     if (!S.from || !S.to) { sStatus(t("st_need_both"), true); return; }
     if (hav(S.from, S.to) < 0.3) { sStatus(t("st_same"), true); return; }
     var err = searchErr();
-    if (err) { sStatus(t(err), true); return; }
+    if (err) { sStatus(t(err), true); if (opts.done) opts.done(null); return; }
     if (!opts.auto) demoStart();
     var seq = ++S.seq;
     sStatus(t("st_routing"));
@@ -438,6 +440,7 @@
       sStatus(!list.length ? none : (S.routing === "fallback" ? t("st_fallback") : ""), S.routing === "fallback" || !list.length);
       S.sel = list.length ? 0 : -1;
       renderResults(); sDrawRoutes(true); renderBreak(); renderPreview();
+      if (opts.done) opts.done(list);
       if (!opts.auto && list.length) {
         var m0 = list[0], z = { zone_from: zoneOf(S.from), zone_to: zoneOf(S.to), slot: slotOfTime(S.time), passengers: S.seats };
         track("route_shown", Object.assign({ option_rank: list.length }, z));
@@ -473,12 +476,12 @@
 
   function seatsTxt(n) { return n === 1 ? t("c_seat1") : t("c_seatn", { n: n }); }
   function whoHTML(tr) {
-    if (SIGNED || tr.published) return "<b>" + esc(tr.name) + "</b>" + '<span class="small muted">' + (UNI[tr.uni] ? esc(UNI[tr.uni]) : "") + (tr.model ? " · " + esc(tr.model) : "") + "</span>";
+    if (unlocked() || tr.published) return "<b>" + esc(tr.name) + "</b>" + '<span class="small muted">' + (UNI[tr.uni] ? esc(UNI[tr.uni]) : "") + (tr.model ? " · " + esc(tr.model) : "") + "</span>";
     return '<b class="blur" aria-hidden="true">Xxxxxx</b><span class="small muted"><span class="blur" aria-hidden="true">XXX · Xxxxx Xxxxx</span> <a href="#join" class="lock">🔒 ' + esc(t("locked")) + "</a></span>";
   }
   function avatarHTML(tr) {
-    var c = SIGNED || tr.published ? (UNI_COLOR[tr.uni] || "#0F1B3D") : "#C9D2E3";
-    return '<div class="avatar" style="background:' + c + '">' + esc(SIGNED || tr.published ? tr.name.charAt(0) : "·") + "</div>";
+    var c = unlocked() || tr.published ? (UNI_COLOR[tr.uni] || "#0F1B3D") : "#C9D2E3";
+    return '<div class="avatar" style="background:' + c + '">' + esc(unlocked() || tr.published ? tr.name.charAt(0) : "·") + "</div>";
   }
 
   function cardHTML(m, i, compact) {
@@ -496,7 +499,8 @@
       "<span>" + esc(t("c_conf", { n: m.conf })) + "</span>" +
       "<span>" + esc(t("c_seats", { n: Math.max(0, m.free) })) + "</span>" +
       (compact ? "" : "<span>" + esc(m.detour > 0.05 ? t("c_detour", { km: km1(m.detour) }) : t("c_detour0")) + "</span>") +
-      (tr.published ? '<span class="chip">' + esc(t("pub_note")) + "</span>" : "") + "</div>" +
+      (tr.published ? '<span class="chip">' + esc(t("pub_note")) + "</span>" : "") +
+      '<button type="button" class="chip g cancelchip" data-act="cancel">' + esc(t("c_cancel")) + " ›</button></div>" +
       (compact ? "" : '<div class="acts"><button class="btn ghost sm" type="button" data-act="break">' + esc(t("btn_break")) + "</button>" +
       '<button class="btn sm" type="button" data-act="reserve">' + esc(t("btn_reserve", { x: eur(m.me.price) })) + "</button></div>") + "</article>";
   }
@@ -527,6 +531,7 @@
     if (e.target.closest("a.lock")) return;
     var card = e.target.closest(".trip"); if (!card) return;
     var i = +card.dataset.i, b = e.target.closest("button");
+    if (b && b.dataset.act === "cancel") { cancelInfo(); return; }
     if (b && b.dataset.act === "reserve") { if (i !== S.sel) selectRes(i); door(i); return; }
     selectRes(i);
     if (b && b.dataset.act === "break") $("s-break").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -537,6 +542,7 @@
   });
   $("h-preview").addEventListener("click", function (e) {
     if (e.target.closest("a.lock")) return;
+    var cb = e.target.closest('[data-act="cancel"]'); if (cb) { cancelInfo(); return; }
     var card = e.target.closest(".trip"); if (!card) return;
     location.hash = "#buscar"; setTimeout(function () { selectRes(+card.dataset.i); }, 60);
   });
@@ -597,6 +603,8 @@
     h += '<tr class="tot"><td colspan="4">' + esc(t("b_total")) + '</td><td class="r">' + eur(me.price) + "</td></tr></tbody></table></div>";
     h += '<p class="small" style="margin:8px 0 0">' + esc(t("b_fixed")) + "</p>";
     h += '<p class="tiny muted" style="margin:6px 0 0">' + esc(t("b_assump")) + "</p>";
+    h += '<p class="small policy">⚠ ' + esc(t("b_policy")) + "</p>";
+    if (me.minAdj > 0.004) h += '<p class="tiny muted">' + esc(t("b_minowner")) + "</p>";
     box.innerHTML = h;
   }
 
@@ -820,42 +828,119 @@
       el.textContent = t("hero_lead_savings", { km: km1(km), price: eur(F.simple(km, 1, P, "petrol").pax[0].price) });
     } else el.textContent = t("hero_lead_community");
   }
-  function optNum(id) { var v = parseFloat(String($(id).value).replace(",", ".")); return isFinite(v) && v > 0 ? v : null; }
-  var HC = null; // último cálculo (para re-pintar al cambiar idioma)
+  function optNum(id) { var v = parseFloat(String($(id).value).replace(",", ".")); return isFinite(v) && v >= 0 && $(id).value !== "" ? v : null; }
+  var HC = null, HOPT = "taxi"; // último cálculo y opción elegida para el titular
   function calcSavings() {
     if (!H.from || !H.to) { $("h-status").textContent = t("sv_need"); $("h-status").classList.add("warn"); return; }
     if (hav(H.from, H.to) < 0.3) { $("h-status").textContent = t("st_same"); $("h-status").classList.add("warn"); return; }
     $("h-status").textContent = t("st_routing"); $("h-status").classList.remove("warn");
     route([H.from, H.to]).then(function (r) {
-      $("h-status").textContent = "";
-      var km = sum(r.legs), flen = F.simple(km, 1, P, "petrol").pax[0].price, roadMin = r.min;
-      HC = { km: km, mode: r.mode, roadMin: roadMin, flen: flen };
-      renderSavings();
-      track("savings_calc", { zone_from: zoneOf(H.from), zone_to: zoneOf(H.to) });
-      // Misma búsqueda para la vista previa y para «Buscar viaje»
-      S.from = H.from; S.to = H.to; fromF.set(S.from); toF.set(S.to); runSearch({ auto: true });
+      HC = { km: sum(r.legs), mode: r.mode, roadMin: r.min };
+      // La misma búsqueda alimenta la vista previa, «Buscar viaje» y el precio de Flenflena del titular
+      S.from = H.from; S.to = H.to; fromF.set(S.from); toF.set(S.to);
+      runSearch({ auto: true, done: function () { $("h-status").textContent = ""; renderSavings(); } });
     });
   }
+  // Precio y tiempo de Flenflena: del conductor seleccionado en la búsqueda (mismo cálculo que las tarjetas)
+  function flenBasis() {
+    var m = S.res[S.sel >= 0 ? S.sel : 0], wait = optNum("h-flenwait");
+    if (m) return { price: m.me.price, m: m, min: SV.flenDoorToDoor({ walkUpKm: m.puAt != null ? m.walkUp : 0, walkDownKm: m.doAt != null ? m.walkDown : 0, waitMin: wait, rideMin: m.arrMin - m.pickMin }) };
+    return { price: F.simple(HC.km, 1, P, "petrol").pax[0].price, m: null, min: null };
+  }
   function renderSavings() {
-    if (!HC) { $("h-out").innerHTML = ""; return; }
-    var rows = SV.compare(HC.km, HC.flen, CFG.SAVINGS, { vtc: optNum("h-vtc"), roadMin: HC.roadMin, flenMin: HC.roadMin + 5, emtMin: optNum("h-emtmin"), metroMin: optNum("h-metromin") });
+    if (!HC) { $("h-out").innerHTML = ""; $("h-tiles").innerHTML = ""; $("h-head").innerHTML = ""; return; }
+    var fb = flenBasis();
+    var rows = SV.compare(HC.km, fb.price, CFG.SAVINGS, { roadMin: HC.roadMin, flenMin: fb.min, taxiWait: optNum("h-taxiwait"), vtcWait: optNum("h-vtcwait"),
+      vtcQuote: optNum("h-vtc"), vtcCoef: optNum("h-vtccoef"), emtMin: optNum("h-emtmin"), metroMin: optNum("h-metromin") });
+    function timeTxt(r) { return r.timeDiff == null ? t("sv_t_na") : (Math.abs(r.timeDiff) < 3 ? t("sv_t_same") : r.timeDiff > 0 ? t("sv_t_more", { n: r.timeDiff }) : t("sv_t_less", { n: -r.timeDiff })); }
+    // Titular según la opción elegida
+    var hd = SV.headline(rows, HOPT), mode = t("sv_" + HOPT), sel = rows.filter(function (r) { return r.id === HOPT; })[0];
+    var main = hd.kind === "nodata" ? t("hd_nodata", { mode: mode }) : t(hd.kind === "save" ? "hd_save" : "hd_more", { x: eur(hd.amount), mode: mode });
+    $("h-head").className = "headline " + hd.kind;
+    $("h-head").innerHTML = "<strong>" + esc(main) + "</strong><span>" + esc(timeTxt(sel)) + " · " + esc(t("hd_est")) + "</span>";
+    // Baldosas: una por alternativa + Flenflena destacada
+    $("h-tiles").innerHTML = rows.map(function (r) {
+      var cost = r.cost == null ? "—" : eur(r.cost);
+      return '<button type="button" role="radio" aria-checked="' + (r.id === HOPT) + '" class="tile' + (r.id === HOPT ? " on" : "") + '" data-opt="' + r.id + '"><span>' + esc(t("sv_" + r.id)) + "</span><strong>" + esc(cost) + "</strong><small>" +
+        esc(r.minutes != null ? t("sv_min", { n: r.minutes }) : t("sv_t_na")) + "</small></button>";
+    }).join("") + '<div class="tile best"><span>Flenflena</span><strong>' + eur(fb.price) + "</strong><small>" + esc(fb.min != null ? t("sv_min", { n: fb.min }) : t("sv_t_na")) + "</small></div>";
     var h = '<p class="small" style="margin:12px 0 4px">' + esc(HC.mode === "osrm" ? t("sv_route", { km: km1(HC.km), min: Math.round(HC.roadMin) }) : t("sv_route_fb", { km: km1(HC.km) })) + "</p>";
-    h += '<p class="small"><b>' + esc(t("sv_flen", { x: eur(HC.flen) })) + "</b></p>";
+    h += '<p class="small"><b>' + esc(fb.m ? t("sv_flen_basis", { x: eur(fb.price), name: unlocked() ? fb.m.trip.name : t("rank", { n: fb.m.rank }), n: fb.m.rank, min: fb.min }) : t("sv_flen_est", { x: eur(fb.price) })) + "</b></p>";
     h += '<div class="scroll"><table><thead><tr><th>' + esc(t("sv_mode")) + '</th><th class="r">' + esc(t("sv_cost")) + '</th><th class="r">' + esc(t("sv_save")) + '</th><th class="r">' + esc(t("sv_time")) + "</th></tr></thead><tbody>";
     rows.forEach(function (r) {
       var cost = r.cost == null ? (r.id === "vtc" ? t("sv_vtc_na") : t("sv_na")) : eur(r.cost);
+      if (r.id === "vtc" && r.cost != null) cost += " · " + (r.kind === "quote" ? t("sv_vtc_quote") : t("sv_vtc_ill", { c: nf(optNum("h-vtccoef") || 0, 2) }));
       var sv = r.saving == null ? "—" : (r.saving >= 0 ? t("sv_saves", { x: eur(r.saving) }) : t("sv_costs", { x: eur(-r.saving) }));
-      var tm = r.timeDiff == null ? t("sv_t_na") : (Math.abs(r.timeDiff) < 3 ? t("sv_t_same") : r.timeDiff > 0 ? t("sv_t_more", { n: r.timeDiff }) : t("sv_t_less", { n: -r.timeDiff }));
-      h += "<tr><td>" + esc(t("sv_" + r.id)) + '</td><td class="r">' + esc(cost) + '</td><td class="r' + (r.saving != null && r.saving >= 0 ? " good" : "") + '">' + esc(sv) + '</td><td class="r">' + esc(tm) + "</td></tr>";
+      h += "<tr><td>" + esc(t("sv_" + r.id)) + '</td><td class="r">' + esc(cost) + '</td><td class="r' + (r.saving != null && r.saving >= 0 ? " good" : "") + '">' + esc(sv) + '</td><td class="r">' + esc(timeTxt(r)) + "</td></tr>";
     });
     h += "</tbody></table></div>";
     h += '<p class="tiny muted">' + esc(t("sv_note_pass")) + "</p>";
     h += '<p class="tiny muted">' + esc(t("sv_note_time")) + "</p>";
+    h += '<p class="tiny muted">' + esc(t("sv_limit")) + "</p>";
     h += '<p class="tiny muted">' + esc(t("sv_note_src")) + ' <a href="' + esc(CFG.SAVINGS.taxi.url) + '" target="_blank" rel="noopener noreferrer">' + esc(t("sv_src_taxi")) + '</a> · <a href="' + esc(CFG.SAVINGS.emt.url) + '" target="_blank" rel="noopener noreferrer">' + esc(t("sv_src_emt")) + '</a> · <a href="' + esc(CFG.SAVINGS.metro.url) + '" target="_blank" rel="noopener noreferrer">' + esc(t("sv_src_metro")) + "</a></p>";
     $("h-out").innerHTML = h;
   }
   $("h-calc").onclick = calcSavings;
-  ["h-vtc", "h-emtmin", "h-metromin"].forEach(function (id) { $(id).addEventListener("input", renderSavings); });
+  $("h-tiles").addEventListener("click", function (e) { var b = e.target.closest("[data-opt]"); if (!b) return; HOPT = b.dataset.opt; renderSavings(); });
+  ["h-vtc", "h-vtccoef", "h-vtcwait", "h-taxiwait", "h-flenwait", "h-emtmin", "h-metromin"].forEach(function (id) { $(id).addEventListener("input", renderSavings); });
+
+  /* ---------- Acceso de miembros (verificación por correo institucional; decide el servidor) ---------- */
+  function applyAccess() {
+    var on = unlocked();
+    document.body.classList.toggle("signed", on);
+    $("acct-off").hidden = on; $("acct-on").hidden = !on;
+    renderResults(); renderPreview(); renderSavings();
+  }
+  function refreshAccess() { applyAccess(); }
+  function cancelInfo() {
+    modal('<h3 id="modal-h">' + esc(t("cancel_h")) + "</h3><p>" + esc(t("cancel_p")) + '</p><div class="acts"><button class="btn ghost" type="button" data-act="no">' + esc(t("close")) + "</button></div>", function (b) {
+      b.querySelector('[data-act="no"]').onclick = closeModal;
+    });
+  }
+  var EMAIL_ERR = { invalid: function () { return t("err_invalid"); }, domain_pending: function () { return t("err_domain_pending"); },
+    uni_mismatch: function () { return t("err_uni_mismatch"); }, domain_not_allowed: function () { return t("err_domain_not_allowed", { list: allowListText() }); } };
+  function emailErr(res) { return res.ok ? "" : (EMAIL_ERR[res.reason] || EMAIL_ERR.invalid)(); }
+  function allowListText() {
+    return CFG.INSTITUTIONS.filter(function (r) { return r.enabled; }).map(function (r) { return r.name + ": " + r.domains.map(function (d) { return "@" + d; }).join(", "); }).join(" · ");
+  }
+  // Pantalla de verificación SIMULADA. Recibe solo la institución; el correo ya se ha descartado.
+  function verifyScreen(institution) {
+    ACCESS.startVerification(institution);
+    var inst = CFG.INSTITUTIONS.filter(function (r) { return r.id === institution; })[0] || { name: "" };
+    modal('<h3 id="modal-h">' + esc(t("vf_h")) + '</h3><p>' + esc(t("vf_p", { uni: inst.name })) + "</p>" +
+      '<div class="field"><label for="vf-code">' + esc(t("vf_code")) + '</label><input id="vf-code" inputmode="numeric" maxlength="6" placeholder="······" autocomplete="off" disabled></div>' +
+      '<p class="policy small" id="vf-demo"><strong>' + esc(t("vf_demo_t")) + "</strong> " + esc(t("vf_demo")) + "</p>" +
+      '<p><a href="#encuesta" data-act="survey">' + esc(t("rv_survey")) + "</a></p>" +
+      '<div class="acts"><button class="btn" type="button" data-act="demo">' + esc(t("vf_continue")) + '</button><button class="btn ghost" type="button" data-act="no">' + esc(t("close")) + "</button></div>", function (b) {
+      b.querySelector('[data-act="no"]').onclick = function () { ACCESS.cancel(); closeModal(); };
+      b.querySelector('[data-act="survey"]').onclick = function (e) { e.preventDefault(); ACCESS.cancel(); closeModal(); goTo("encuesta"); };
+      b.querySelector('[data-act="demo"]').onclick = function () {
+        if (ACCESS.continueDemo()) { closeModal(); refreshAccess(); location.hash = "#buscar"; }
+      };
+    });
+  }
+  function loginModal() {
+    modal('<h3 id="modal-h">' + esc(t("li_h")) + '</h3><p class="small muted">' + esc(t("li_p")) + "</p>" +
+      '<form id="li-form" novalidate autocomplete="off"><div class="field"><label for="li-email">' + esc(t("f_email_inst")) + '</label><input type="email" id="li-email" maxlength="120"><div class="err" id="li-e1"></div></div>' +
+      '<p class="tiny muted">' + esc(t("allow_line", { list: allowListText() })) + "</p>" +
+      '<div class="acts"><button class="btn" type="submit">' + esc(t("send_link")) + '</button><button class="btn ghost" type="button" data-act="no">' + esc(t("close")) + "</button></div></form>", function (b) {
+      b.querySelector('[data-act="no"]').onclick = closeModal;
+      b.querySelector("#li-form").onsubmit = function (e) {
+        e.preventDefault();
+        var em = b.querySelector("#li-email"), res = window.FFAuth.checkEmail(em.value, "", CFG.INSTITUTIONS);
+        b.querySelector("#li-e1").textContent = emailErr(res);
+        if (!res.ok) return;
+        em.value = "";
+        verifyScreen(res.institution);
+      };
+    });
+  }
+  $("btn-login").onclick = loginModal;
+  $("btn-signup").onclick = function () { goTo("join"); };
+  $("btn-logout").onclick = function () { ACCESS.logout(); refreshAccess(); };
+  qsa("#h-overlay [data-act], #s-lockbar [data-act]").forEach(function (b) {
+    b.onclick = function () { if (b.dataset.act === "login") loginModal(); else goTo("join"); };
+  });
 
   /* ---------- Registro simulado y encuesta ---------- */
   var formStarted = false;
@@ -863,20 +948,18 @@
   $("joinForm").addEventListener("submit", function (e) {
     e.preventDefault();
     var name = $("f-name").value.trim(), email = $("f-email").value.trim();
-    var nOk = /^[\p{L}][\p{L} '.\-]{1,79}$/u.test(name), eOk = /^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/.test(email), aOk = $("f-adult").checked;
+    var nOk = /^[\p{L}][\p{L} '.\-]{1,79}$/u.test(name), aOk = $("f-adult").checked;
+    var eRes = window.FFAuth.checkEmail(email, $("f-uni").value, CFG.INSTITUTIONS), eOk = eRes.ok;
     $("e-name").textContent = nOk ? "" : t("err_name"); $("f-name").classList.toggle("bad", !nOk); $("f-name").setAttribute("aria-invalid", !nOk);
-    $("e-email").textContent = eOk ? "" : t("err_email"); $("f-email").classList.toggle("bad", !eOk); $("f-email").setAttribute("aria-invalid", !eOk);
+    $("e-email").textContent = emailErr(eRes); $("f-email").classList.toggle("bad", !eOk); $("f-email").setAttribute("aria-invalid", !eOk);
     $("e-adult").textContent = aOk ? "" : t("err_adult");
     if (!(nOk && eOk && aOk)) { (!nOk ? $("f-name") : !eOk ? $("f-email") : $("f-adult")).focus(); return; }
     // Solo se cuenta el envío; nombre, correo y el resto del formulario se descartan aquí mismo.
     name = email = null;
     track("form_submit", {});
+    var inst = eRes.institution;
     $("joinForm").reset(); formStarted = false;
-    SIGNED = true; renderResults(); renderPreview();
-    modal(reveal('<p class="small muted" style="margin:0 0 8px">' + esc(t("rv_unlock")) + "</p>", '<button class="btn ghost" type="button" data-act="no">' + esc(t("close")) + "</button>"), function (b) {
-      b.querySelector('[data-act="no"]').onclick = closeModal;
-      b.querySelector('[data-act="survey"]').onclick = function (ev) { ev.preventDefault(); closeModal(); goTo("encuesta"); };
-    });
+    verifyScreen(inst);
   });
   $("surveyForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -950,6 +1033,8 @@
     $("s-date").value = ymd(tm); $("p-date").value = ymd(tm);
 
     applyStatic();
+    var AS = CFG.SAVINGS.assumptions;
+    $("h-taxiwait").value = AS.taxiWaitMin; $("h-vtcwait").value = AS.vtcWaitMin; $("h-vtccoef").value = AS.vtcCoefOnTaxi.toFixed(2); $("h-flenwait").value = AS.flenWaitMin;
     sMap = makeMap("s-map"); sLayer = L.layerGroup().addTo(sMap);
     pMap = makeMap("p-map"); pLayer = L.layerGroup().addTo(pMap);
 
@@ -991,10 +1076,12 @@
     });
     pbRecalc();
 
+    $("allow-list").textContent = t("allow_line", { list: allowListText() });
+    refreshAccess();
     show();
     if (!autoRan) { autoRan = true; runSearch({ auto: true }); } // vista previa de la portada
     track("view", {});
   }).catch(function (err) { console.error(err); });
 
-  window.FF_DEBUG = { fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); } };
+  window.FF_DEBUG = { access: ACCESS, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); } };
 })();

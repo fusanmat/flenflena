@@ -1,10 +1,10 @@
-/* Flenflena v6 · configuración central (borrador LOCAL, sin publicar). */
+/* Flenflena · configuración central. */
 window.FF_CONFIG = {
-  VERSION: "v6",
-  // Métricas: TODO apagado en v6. Con SHEET_ENDPOINT vacío y UMAMI_WEBSITE_ID vacío, track() solo escribe en la consola.
+  VERSION: "v3",
+  // Métricas anónimas: MISMO destino e indicadores que v2 (Apps Script → hoja de Google). Umami sin uso.
   UMAMI_WEBSITE_ID: "",
   UMAMI_SCRIPT_URL: "https://cloud.umami.is/script.js",
-  SHEET_ENDPOINT: "",
+  SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycbx7S6x-_nl03Rj6QYp78ePDYIxOHUlPuoCUAyBgnMmM1-jbc8Cmeb-NN3ijqnc-X7v87A/exec", // el de v2, sin cambios
   USE_SESSION_ID: false,
   HEARTBEAT_S: 15,
   HEARTBEAT_MAX_S: 300,
@@ -36,6 +36,8 @@ window.FF_CONFIG = {
     taxi: { flag: 2.00, perKm: 1.36, minDay: 4.95, checked: "2026-11-08",
             url: "https://teletaxivalencia.com/wp-content/uploads/2026/04/Tarifas-urbanas-2026-resolucion.pdf" },
     emt: { single: 2.00, checked: "2026-11-08", url: "https://www.emtvalencia.es/wp/tarifas-y-titulos/" },
+    // Supuestos ILUSTRATIVOS editables en la portada (sin fuente; no son datos de mercado)
+    assumptions: { taxiWaitMin: 5, vtcWaitMin: 5, vtcCoefOnTaxi: 1.00, flenWaitMin: 5 },
     metro: { single: 1.50, checked: "2026-11-08", url: "https://www.metrovalencia.es/es/nuestras-tarifas/" }
   },
 
@@ -49,6 +51,16 @@ window.FF_CONFIG = {
   // ?src= solo acepta estos valores; cualquier otro se registra como "other" (evita filtrar texto privado)
   SRC_ALLOWED: ["direct", "qr", "poster", "whatsapp", "instagram", "x", "email", "class", "flyer", "linkedin"],
 
+  // Maqueta: sin verificación real ni servidor de cuentas (ver js/auth.js).
+  // Dominios institucionales admitidos. Coincidencia exacta; subdominios solo con regla explícita (subdomainsOf).
+  INSTITUTIONS: [
+    { id: "upv", name: "UPV", enabled: true, domains: ["upv.es", "upv.edu.es"], subdomainsOf: [],
+      source: "Facilitados por el equipo (8-nov-2026)" },
+    { id: "uv", name: "UV", enabled: true, domains: ["uv.es", "alumni.uv.es"], subdomainsOf: [],
+      source: "Universitat de València, SIUV: PDI/PAS @uv.es, alumnado @alumni.uv.es (uv.es/wikisiuv; uveg.atlassian.net, consultado 8-nov-2026)" },
+    { id: "ceu", name: "CEU-UCH", enabled: true, domains: ["uchceu.es"], subdomainsOf: [],
+      source: "uchceu.es (correos oficiales de la universidad, consultado 8-nov-2026). Dominio del alumnado: PENDIENTE de confirmar" }
+  ],
   CONTACT: "TODO: contacto del equipo",
   DELETION_DATE: "TODO: fecha de borrado"
 };

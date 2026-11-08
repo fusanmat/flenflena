@@ -1,4 +1,4 @@
-/* Flenflena v6 · textos nuevos o cambiados sobre los de v2 (ES/EN). */
+/* Flenflena · textos nuevos o cambiados sobre los de v2 (ES/EN). */
 (function () {
   var es = {
     demo_label: "Demostración: perfiles, viajes y precios ficticios",
@@ -38,8 +38,6 @@
     p1: "No usamos cookies ni guardamos nada en tu navegador.",
     p2: "Tu nombre, tu correo y los nombres que escribas al publicar un trayecto no salen de tu navegador: se comprueban y se descartan.",
     p3: "Lo que escribes en el buscador de direcciones se envía a Photon (komoot) para encontrar el lugar, y los puntos de la ruta a OSRM para calcularla. Las teselas del mapa vienen de OpenStreetMap. Estos servicios externos reciben esas consultas, coordenadas y tu dirección IP, como cualquier web que visitas.",
-    p4: "En nuestras métricas solo contaríamos zonas (campus, barrio o municipio) y franjas horarias, nunca direcciones, coordenadas, nombres ni correos. Ahora mismo las métricas están apagadas: no se envía nada a ninguna hoja ni servicio de analítica.",
-    p5: "La página la sirve GitHub Pages, que recibe tu IP de forma técnica. Contacto: {contact}. Borrado de cifras agregadas: {deletion}.",
     faq2_a: "Cada tramo cuesta km × coste de energía por km del coche (gasolina, diésel, híbrido o eléctrico). Ese coste se divide entre quienes van en el coche en ese tramo, conductor incluido. Lo ves paso a paso en «Cómo calculamos el precio».",
     faq3_a: "No. Quien conduce solo recupera parte de sus gastos de energía, nunca más que el coste del viaje: no es un ingreso.",
     faq4_a: "Personas de la comunidad universitaria de la UPV, la UV y el CEU-UCH: estudiantes, profesores y personal.",
@@ -72,7 +70,6 @@
     b_people: "Personas", b_share: "Tu parte",
     rv_price: "Has elegido un viaje de {x}. Precio fijado: {x}.",
     rv_cancel: "En el servicio real, la cancelación sería gratuita. Aquí no se ha hecho ninguna reserva ni ningún pago.",
-    rv_unlock: "Ahora ves los perfiles completos en esta pestaña (hasta que la recargues).",
     drivetrain: "Motorización",
     car_type: "Motorización", car_petrol: "Gasolina", car_diesel: "Diésel", car_hybrid: "Híbrido", car_ev: "Eléctrico",
     p_sub: "Indica salida, paradas, día y destino. Calculamos cuántas personas van en cada tramo y lo que paga cada una.",
@@ -123,8 +120,6 @@
     p1: "We use no cookies and store nothing in your browser.",
     p2: "Your name, email and any names you type when offering a ride never leave your browser: they are checked and discarded.",
     p3: "What you type in the address search goes to Photon (komoot) to find the place, and route points go to OSRM to compute the route. Map tiles come from OpenStreetMap. These external services receive those queries, coordinates and your IP address, like any website you visit.",
-    p4: "Our metrics would only count zones (campus, neighbourhood or town) and time slots, never addresses, coordinates, names or emails. Metrics are currently switched off: nothing is sent to any sheet or analytics service.",
-    p5: "The page is served by GitHub Pages, which technically receives your IP. Contact: {contact}. Aggregated figures deleted on: {deletion}.",
     faq2_a: "Each leg costs km × the car's energy cost per km (petrol, diesel, hybrid or electric). That cost is split among everyone in the car on that leg, driver included. See it step by step in “How we calculate the price”.",
     faq3_a: "No. Drivers only recover part of their energy costs, never more than the trip cost: it is not income.",
     faq4_a: "People from the UPV, UV and CEU-UCH university community: students, teachers and staff.",
@@ -157,7 +152,6 @@
     b_people: "People", b_share: "Your share",
     rv_price: "You chose a {x} ride. Price fixed: {x}.",
     rv_cancel: "In the real service, cancellation would be free. No booking or payment has been made here.",
-    rv_unlock: "You can now see full profiles in this tab (until you reload it).",
     drivetrain: "Drivetrain",
     car_type: "Drivetrain", car_petrol: "Petrol", car_diesel: "Diesel", car_hybrid: "Hybrid", car_ev: "Electric",
     p_sub: "Set start, stops, day and destination. We work out how many people ride each leg and what each pays.",
@@ -172,4 +166,106 @@
   };
   Object.assign(window.FF_I18N.es, es);
   Object.assign(window.FF_I18N.en, en);
+})();
+/* Revisión «v2 completa»: cuenta simulada, portada estilo v5, ahorro por opción, política de precio pendiente. */
+(function () {
+  Object.assign(window.FF_I18N.es, {
+    login: "Entrar", signup: "Crear cuenta", logout: "Salir", session_demo: "Sesión de demostración",
+    eyebrow: "De la comunidad universitaria · València",
+    hero_title: "Tu camino al campus, <span class=\"hl\">mejor en compañía.</span>",
+    tagline: "Un flen, una flena, un mismo camino.",
+    hero_lead_community: "Comparte coche con estudiantes, profesores y personal de la UPV, la UV y el CEU-UCH que hacen tu mismo trayecto, y paga solo tu parte de los gastos.",
+    trust_t: "Confianza sin mostrar datos personales",
+    trust: "Pensado para la comunidad universitaria de València. Flenflena no es un servicio de ninguna universidad ni cuenta con su aval. En esta demostración no se verifica ni se recoge ningún dato.",
+    role_teacher: "Profesor/a",
+    faq4_a: "Personas de la comunidad universitaria de la UPV, la UV y el CEU-UCH: estudiantes, profesores y personal.",
+    sv_title: "Calcula antes de compartir",
+    sv_sub: "Tu ruta real frente a taxi, VTC, bus EMT o metro (nunca frente a coche propio).",
+    sv_opt: "Supuestos editables: VTC, esperas y tus tiempos en bus o metro",
+    sv_vtc_in: "Precio VTC que te dan (€)", sv_vtc_coef: "VTC ilustrativo: × tarifa taxi", sv_vtc_wait: "Espera VTC (min, supuesto)",
+    sv_taxi_wait: "Espera taxi (min, supuesto)", sv_flen_wait: "Espera en el punto de encuentro (min, supuesto)",
+    sv_emt_min: "Tu tiempo puerta a puerta en EMT (min)", sv_metro_min: "Tu tiempo puerta a puerta en metro (min)",
+    sv_btn: "Calcular mi ahorro",
+    hd_save: "Podrías ahorrar aprox. {x} frente a {mode}", hd_more: "Frente a {mode}, Flenflena cuesta {x} más",
+    hd_nodata: "Sin dato de precio para {mode}", hd_time: "{t}", hd_est: "Estimación con supuestos ilustrativos; no es un presupuesto.",
+    sv_flen_basis: "Flenflena: {x} con {name}, opción {n} de tu búsqueda ({min} min puerta a puerta: a pie + espera + coche).",
+    sv_flen_est: "Flenflena: {x} (estimación sin conductor concreto: coche de gasolina y una persona más).",
+    sv_vtc_ill: "estimación ilustrativa (× {c} sobre la fórmula del taxi; no es tarifa real)", sv_vtc_quote: "precio que has escrito",
+    sv_vtc_na: "Sin dato: escribe un precio o un coeficiente",
+    sv_t_na: "sin dato (escríbelo)", sv_min: "{n} min",
+    sv_note_time: "Tiempos puerta a puerta: taxi y VTC = espera supuesta + coche (OSRM, sin tráfico en tiempo real); Flenflena = a pie + espera supuesta + trayecto del conductor elegido. No tenemos horarios de bus y metro en tiempo real: solo se comparan si escribes tu tiempo.",
+    sv_limit: "Límite: sin horarios de transporte público en tiempo real ni precios VTC verificables, esta comparación no es automática ni completa.",
+    ov_t: "Los detalles de miembros no son públicos", ov_d: "Crea una cuenta (simulada) o entra para ver nombres y coches.",
+    c_cancel: "Cancelación gratuita", cancel_h: "Cancelación gratuita (demostración)",
+    cancel_p: "En el servicio real, podrías cancelar sin coste. Esto es una demostración: no hay reservas, pagos ni cancelaciones reales.",
+    li_h: "Entrar (demostración)", li_p: "No hay cuentas reales: lo que escribas se comprueba en tu navegador y se descarta. Al entrar verás los perfiles ficticios hasta que recargues.",
+    b_policy: "Decisión pendiente: si todas las personas pagan el mismo precio por ruta o según la motorización del coche. Esta demostración usa provisionalmente el coste de cada coche; no es una regla aprobada.",
+    b_minowner: "Pendiente: a quién corresponde el ajuste mínimo (no va a quien conduce)."
+  });
+  Object.assign(window.FF_I18N.en, {
+    login: "Log in", signup: "Sign up", logout: "Log out", session_demo: "Demo session",
+    eyebrow: "From the university community · València",
+    hero_title: "Your way to campus, <span class=\"hl\">better together.</span>",
+    tagline: "Un flen, una flena, un mismo camino.",
+    hero_lead_community: "Share rides with students, teachers and staff from UPV, UV and CEU-UCH who travel your way, and pay only your share of the costs.",
+    trust_t: "Trust without showing personal data",
+    trust: "Built for València's university community. Flenflena is not a service of any university and is not endorsed by one. This demo verifies and collects nothing.",
+    role_teacher: "Teacher",
+    faq4_a: "People from the UPV, UV and CEU-UCH university community: students, teachers and staff.",
+    sv_title: "Calculate before you share",
+    sv_sub: "Your real route vs taxi, VTC, EMT bus or metro (never vs your own car).",
+    sv_opt: "Editable assumptions: VTC, waits and your bus or metro times",
+    sv_vtc_in: "VTC price you were quoted (€)", sv_vtc_coef: "Illustrative VTC: × taxi fare", sv_vtc_wait: "VTC wait (min, assumption)",
+    sv_taxi_wait: "Taxi wait (min, assumption)", sv_flen_wait: "Wait at meeting point (min, assumption)",
+    sv_emt_min: "Your door-to-door EMT time (min)", sv_metro_min: "Your door-to-door metro time (min)",
+    sv_btn: "Calculate my savings",
+    hd_save: "You could save about {x} vs {mode}", hd_more: "Compared with {mode}, Flenflena costs {x} more",
+    hd_nodata: "No price data for {mode}", hd_time: "{t}", hd_est: "Estimate based on illustrative assumptions; not a quote.",
+    sv_flen_basis: "Flenflena: {x} with {name}, option {n} of your search ({min} min door to door: walk + wait + ride).",
+    sv_flen_est: "Flenflena: {x} (estimate without a specific driver: petrol car with one other person).",
+    sv_vtc_ill: "illustrative estimate (× {c} on the taxi formula; not a real fare)", sv_vtc_quote: "price you entered",
+    sv_vtc_na: "No data: enter a price or a coefficient",
+    sv_t_na: "no data (enter it)", sv_min: "{n} min",
+    sv_note_time: "Door-to-door times: taxi and VTC = assumed wait + car (OSRM, no live traffic); Flenflena = walk + assumed wait + the chosen driver's trip. We have no live bus or metro timetables: they are compared only if you enter your time.",
+    sv_limit: "Limitation: without live public transport timetables or verifiable VTC prices, this comparison is neither automatic nor complete.",
+    ov_t: "Member details are not public", ov_d: "Create a (simulated) account or log in to see names and cars.",
+    c_cancel: "Free cancellation", cancel_h: "Free cancellation (demo)",
+    cancel_p: "In the real service you could cancel at no cost. This is a demo: there are no real bookings, payments or cancellations.",
+    li_h: "Log in (demo)", li_p: "There are no real accounts: what you type is checked in your browser and discarded. After logging in you'll see the fictitious profiles until you reload.",
+    b_policy: "Pending decision: whether everyone pays the same price per route or a price based on the car's drivetrain. This demo provisionally uses each car's own cost; it is not an approved rule.",
+    b_minowner: "Pending: who receives the minimum adjustment (it does not go to the driver)."
+  });
+})();
+/* Acceso solo con correo institucional verificado por un servidor. */
+(function () {
+  Object.assign(window.FF_I18N.es, {
+    f_email_inst: "Correo institucional", uni_auto: "Según tu correo",
+    allow_line: "Correos admitidos: {list}.",
+    vf_h: "Verifica tu correo universitario", vf_p: "En la versión real te enviaríamos un código de 6 cifras a tu correo de {uni} para confirmar que perteneces a la comunidad universitaria.",
+    vf_code: "Código de verificación", vf_demo_t: "Demostración:", vf_demo: "En esta demostración no enviamos correos ni creamos cuentas. Tu correo ya se ha descartado y no se ha verificado nada.",
+    vf_continue: "Continuar con la demostración", session_demo: "Vista de demostración · sin verificar",
+    send_link: "Continuar",
+    err_invalid: "Revisa el formato del correo.", err_domain_not_allowed: "Usa tu correo institucional. {list}.",
+    err_domain_pending: "Ese dominio está pendiente de revisión.", err_uni_mismatch: "El correo no corresponde a la universidad elegida.",
+    li_h: "Entrar con tu correo institucional", li_p: "Los perfiles son solo para la comunidad universitaria. Demostración: no se envía ningún correo.",
+    login: "Entrar",
+    join_privacy: "Privacidad: esto es una demostración. Tu nombre y tu correo institucional solo se comprueban en tu navegador y se descartan al momento: no enviamos correos, no creamos cuentas y no se guardan ni se envían a ningún sitio. Solo contamos eventos de uso anónimos (paso usado, zona y franja horaria, tiempo en la página) en una hoja de cálculo de Google, sin cookies ni identificador en el navegador.",
+    ov_t: "Los detalles de miembros no son públicos", ov_d: "Solo para la comunidad universitaria (UPV, UV, CEU-UCH). En la demo, regístrate y continúa para ver perfiles ficticios.",
+    trust: "Pensado para la comunidad universitaria de València: el acceso real exigiría verificar un correo institucional. Flenflena no es un servicio de ninguna universidad ni cuenta con su aval. Los perfiles mostrados son ficticios."
+  });
+  Object.assign(window.FF_I18N.en, {
+    f_email_inst: "University email", uni_auto: "From your email",
+    allow_line: "Accepted emails: {list}.",
+    vf_h: "Verify your institutional email", vf_p: "In the real version we would send a 6-digit code to your {uni} email to confirm you belong to the university community.",
+    vf_code: "Verification code", vf_demo_t: "Demo:", vf_demo: "In this demo we send no emails and create no accounts. Your email has already been discarded and nothing has been verified.",
+    vf_continue: "Continue with the demo", session_demo: "Demo view · not verified",
+    send_link: "Continue",
+    err_invalid: "Check the email format.", err_domain_not_allowed: "Use your institutional email. {list}.",
+    err_domain_pending: "That domain is pending review.", err_uni_mismatch: "The email does not match the selected university.",
+    li_h: "Log in with your institutional email", li_p: "Profiles are only for the university community. Demo: no email is sent.",
+    login: "Log in",
+    join_privacy: "Privacy: to verify your account, your institutional email would be sent to our verification service only to send you the link. Verification is currently switched off: nothing is sent or saved. Metrics are anonymous and never include your email.",
+    ov_t: "Member details are not public", ov_d: "Only for the university community (UPV, UV, CEU-UCH). In the demo, sign up and continue to see fictitious profiles.",
+    trust: "Built for València's university community: real access would require verifying a university email. Flenflena is not a service of any university and is not endorsed by one. Profiles shown are fictitious."
+  });
 })();
