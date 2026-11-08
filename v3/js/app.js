@@ -512,7 +512,32 @@
     box.innerHTML = S.res.map(function (m, i) { priceRes(m); return cardHTML(m, i, false); }).join("");
   }
   function hashStr(s) { var h = 0; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
+  /* ---------- Mapa de la portada: trayecto elegido en la calculadora + trayectos ficticios de demostración ---------- */
+  var hMap = null, hLayer = null, hSeq = 0;
+  function hDraw() {
+    if (!hMap || !H.from || !H.to || hav(H.from, H.to) < 0.3) return;
+    var seq = ++hSeq, from = H.from, to = H.to;
+    route([from, to]).then(function (r) {
+      if (seq !== hSeq) return;
+      hLayer.clearLayers();
+      var all = r.line.slice();
+      // Trayectos de demostración: los mismos conductores ficticios de la vista previa, solo si la búsqueda es de este trayecto
+      var same = S.from && S.to && hav(S.from, from) < 0.05 && hav(S.to, to) < 0.05;
+      (same ? S.res.slice(0, 3) : []).forEach(function (m, i) {
+        if (!m.r || !m.r.line) return;
+        L.polyline(m.r.line, { color: "#0F1B3D", weight: 5, opacity: 0.28, className: "hm-demo", bubblingMouseEvents: false })
+          .bindTooltip(esc(t("hm_demo_n", { n: i + 1 }))).addTo(hLayer);
+        all = all.concat(m.r.line);
+      });
+      L.polyline(r.line, { color: "#F26B1D", weight: 6, opacity: 0.95, className: "hm-sel" }).bindTooltip(esc(t("hm_sel"))).addTo(hLayer);
+      pinAt("#F26B1D", "A", from, from.label).addTo(hLayer);
+      pinAt("#0F1B3D", "B", to, to.label).addTo(hLayer);
+      $("h-map-note").textContent = r.mode === "osrm" ? "" : t("hm_fallback");
+      fitTo(hMap, all);
+    });
+  }
   function renderPreview() {
+    hDraw();
     var box = $("h-preview"); if (!box) return;
     box.innerHTML = S.res.slice(0, 3).map(function (m, i) { priceRes(m); return cardHTML(m, i, true); }).join("");
   }
@@ -1039,9 +1064,10 @@
     pMap = makeMap("p-map"); pLayer = L.layerGroup().addTo(pMap);
 
     // Inicio: calculadora
-    hFromF = addrField($("h-from"), $("h-from-q"), function (p) { H.from = p; }, null);
-    hToF = addrField($("h-to"), $("h-to-q"), function (p) { H.to = p; }, null);
-    H.from = placePt("puig"); H.to = placePt("upv"); hFromF.set(H.from); hToF.set(H.to);
+    hMap = makeMap("h-map"); hLayer = L.layerGroup().addTo(hMap);
+    hFromF = addrField($("h-from"), $("h-from-q"), function (p) { H.from = p; hDraw(); }, null);
+    hToF = addrField($("h-to"), $("h-to-q"), function (p) { H.to = p; hDraw(); }, null);
+    H.from = placePt("puig"); H.to = placePt("upv"); hFromF.set(H.from); hToF.set(H.to); hDraw();
 
     // Buscar
     var clickR = qsa('input[name="s-click"]');
@@ -1083,5 +1109,5 @@
     track("view", {});
   }).catch(function (err) { console.error(err); });
 
-  window.FF_DEBUG = { access: ACCESS, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); } };
+  window.FF_DEBUG = { access: ACCESS, hSetTo: function (p) { hToF.set(p); H.to = p; hDraw(); }, place: function (id) { return placePt(id); }, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); } };
 })();

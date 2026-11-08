@@ -241,6 +241,7 @@
   Object.assign(window.FF_I18N.es, {
     f_email_inst: "Correo institucional", uni_auto: "Según tu correo",
     allow_line: "Correos admitidos: {list}.",
+    hm_sel: "Tu trayecto", hm_demo: "Trayectos de demostración (ficticios)", hm_demo_n: "Trayecto de demostración {n} (ficticio)", hm_aria: "Mapa del trayecto elegido y trayectos de demostración", hm_fallback: "Ruta aproximada (línea recta): el servicio de rutas no responde.",
     vf_h: "Verifica tu correo universitario", vf_p: "En la versión real te enviaríamos un código de 6 cifras a tu correo de {uni} para confirmar que perteneces a la comunidad universitaria.",
     vf_code: "Código de verificación", vf_demo_t: "Demostración:", vf_demo: "En esta demostración no enviamos correos ni creamos cuentas. Tu correo ya se ha descartado y no se ha verificado nada.",
     vf_continue: "Continuar con la demostración", session_demo: "Vista de demostración · sin verificar",
@@ -256,6 +257,7 @@
   Object.assign(window.FF_I18N.en, {
     f_email_inst: "University email", uni_auto: "From your email",
     allow_line: "Accepted emails: {list}.",
+    hm_sel: "Your route", hm_demo: "Demo trips (fictitious)", hm_demo_n: "Demo trip {n} (fictitious)", hm_aria: "Map of the selected route and demo trips", hm_fallback: "Approximate route (straight line): the routing service is not responding.",
     vf_h: "Verify your institutional email", vf_p: "In the real version we would send a 6-digit code to your {uni} email to confirm you belong to the university community.",
     vf_code: "Verification code", vf_demo_t: "Demo:", vf_demo: "In this demo we send no emails and create no accounts. Your email has already been discarded and nothing has been verified.",
     vf_continue: "Continue with the demo", session_demo: "Demo view · not verified",

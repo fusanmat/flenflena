@@ -86,7 +86,7 @@ input.bad{border-color:#D14343}
 .status.warn{margin-top:10px}
 
 /* inicio */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:20px 0 30px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start;padding:20px 0 30px}
 .hero p.lead{font-size:18px;color:var(--muted);max-width:520px}
 .hero .unis{display:flex;gap:8px;margin:18px 0 0;flex-wrap:wrap}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
@@ -315,3 +315,11 @@ body.signed .overlay,body.signed .lockbar{display:none}
   .row3{grid-template-columns:1fr 1fr}
   .headline strong{font-size:18px}
 }
+
+/* Mapa de la portada */
+.hmapwrap{margin-top:18px}
+.mapbox.hmap{height:300px}
+.hm-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;color:var(--muted)}
+.hm-legend .sw{display:inline-block;width:22px;height:5px;border-radius:3px;vertical-align:middle;margin-right:6px}
+.hm-legend .sw.sel{background:#F26B1D}.hm-legend .sw.demo{background:#0F1B3D;opacity:.3}
+@media (max-width:900px){.mapbox.hmap{height:240px}}
