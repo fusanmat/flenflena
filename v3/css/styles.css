@@ -86,7 +86,7 @@ input.bad{border-color:#D14343}
 .status.warn{margin-top:10px}
 
 /* inicio */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start;padding:20px 0 30px}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:36px;align-items:start;padding:20px 0 30px}
 .hero p.lead{font-size:18px;color:var(--muted);max-width:520px}
 .hero .unis{display:flex;gap:8px;margin:18px 0 0;flex-wrap:wrap}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
@@ -198,6 +198,7 @@ footer p{margin:4px 0}
 @media (max-width:900px){
   h1{font-size:34px}
   .hero,.grid2,.calc,.two{grid-template-columns:1fr}
+  .hero{grid-template-columns:minmax(0,1fr)}
   .sticky{position:static}
   .searchbar{grid-template-columns:1fr}
   .searchbar2{grid-template-columns:1fr 1fr}
@@ -317,9 +318,13 @@ body.signed .overlay,body.signed .lockbar{display:none}
 }
 
 /* Mapa de la portada */
-.hmapwrap{margin-top:18px}
+.hero>*{min-width:0}
+.hmapwrap{margin-top:18px;width:100%;max-width:100%;min-width:0}
+.mapbox.hmap{width:100%;max-width:100%}
+.hmap .leaflet-control-attribution{white-space:normal;max-width:calc(100% - 8px);line-height:1.3}
 .mapbox.hmap{height:300px}
-.hm-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;color:var(--muted)}
+.hm-legend{display:flex;gap:6px 16px;flex-wrap:wrap;min-width:0;margin-top:8px;color:var(--muted)}
+.hm-legend>span{min-width:0;overflow-wrap:anywhere}
 .hm-legend .sw{display:inline-block;width:22px;height:5px;border-radius:3px;vertical-align:middle;margin-right:6px}
 .hm-legend .sw.sel{background:#F26B1D}.hm-legend .sw.demo{background:#0F1B3D;opacity:.3}
 @media (max-width:900px){.mapbox.hmap{height:240px}}
