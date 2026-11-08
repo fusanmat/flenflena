@@ -1,0 +1,276 @@
+{
+ "_note": "Perfiles ficticios de demostración (nombres de pila inventados, sin fotos). 'f' = conductora, solo para el filtro 'Solo conductoras'.",
+ "trips": [
+  {
+   "id": 1,
+   "name": "Lucía",
+   "uni": "upv",
+   "model": "Seat Ibiza",
+   "type": "petrol",
+   "time": "07:40",
+   "cap": 3,
+   "route": [
+    "puig",
+    "mass",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Carlos",
+     "up": 1,
+     "down": 2
+    }
+   ],
+   "f": true
+  },
+  {
+   "id": 2,
+   "name": "Javier",
+   "uni": "uv",
+   "model": "Toyota Corolla",
+   "type": "hybrid",
+   "time": "07:45",
+   "cap": 3,
+   "route": [
+    "torr",
+    "alaq",
+    "uvt"
+   ],
+   "pax": [
+    {
+     "name": "Inés",
+     "up": 1,
+     "down": 2
+    }
+   ],
+   "f": false
+  },
+  {
+   "id": 3,
+   "name": "Marta",
+   "uni": "upv",
+   "model": "Kia Niro",
+   "type": "hybrid",
+   "time": "07:20",
+   "cap": 3,
+   "route": [
+    "sag",
+    "pucol",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Rubén",
+     "up": 1,
+     "down": 2
+    }
+   ],
+   "f": true
+  },
+  {
+   "id": 4,
+   "name": "Andrés",
+   "uni": "ceu",
+   "model": "Renault Clio",
+   "type": "petrol",
+   "time": "07:45",
+   "cap": 3,
+   "route": [
+    "ruz",
+    "bmc",
+    "ceu"
+   ],
+   "pax": [
+    {
+     "name": "Lara",
+     "up": 1,
+     "down": 2
+    }
+   ],
+   "f": false
+  },
+  {
+   "id": 5,
+   "name": "Sofía",
+   "uni": "uv",
+   "model": "Peugeot 208",
+   "type": "petrol",
+   "time": "07:50",
+   "cap": 3,
+   "route": [
+    "pat",
+    "burj",
+    "uvbp"
+   ],
+   "pax": [],
+   "f": true
+  },
+  {
+   "id": 6,
+   "name": "Elena",
+   "uni": "upv",
+   "model": "Hyundai Kona",
+   "type": "ev",
+   "time": "07:35",
+   "cap": 4,
+   "route": [
+    "betera",
+    "monc",
+    "upv"
+   ],
+   "pax": [],
+   "f": true
+  },
+  {
+   "id": 7,
+   "name": "Pablo",
+   "uni": "uv",
+   "model": "Ford Fiesta",
+   "type": "petrol",
+   "time": "07:35",
+   "cap": 3,
+   "route": [
+    "cata",
+    "alfaf",
+    "uvb"
+   ],
+   "pax": [
+    {
+     "name": "Noelia",
+     "up": 1,
+     "down": 2
+    }
+   ],
+   "f": false
+  },
+  {
+   "id": 8,
+   "name": "Irene",
+   "uni": "upv",
+   "model": "VW Polo",
+   "type": "petrol",
+   "time": "07:40",
+   "cap": 3,
+   "route": [
+    "manis",
+    "quart",
+    "misl",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Álex",
+     "up": 1,
+     "down": 3
+    },
+    {
+     "name": "Paula",
+     "up": 2,
+     "down": 3
+    }
+   ],
+   "f": true
+  },
+  {
+   "id": 9,
+   "name": "Hugo",
+   "uni": "uv",
+   "model": "Dacia Sandero",
+   "type": "petrol",
+   "time": "07:45",
+   "cap": 3,
+   "route": [
+    "ribar",
+    "eliana",
+    "uvbp"
+   ],
+   "pax": [],
+   "f": false
+  },
+  {
+   "id": 10,
+   "name": "Nerea",
+   "uni": "ceu",
+   "model": "Mazda 2",
+   "type": "petrol",
+   "time": "08:05",
+   "cap": 3,
+   "route": [
+    "mass",
+    "mel",
+    "ceu"
+   ],
+   "pax": [],
+   "f": true
+  },
+  {
+   "id": 11,
+   "name": "Diego",
+   "uni": "upv",
+   "model": "Opel Corsa",
+   "type": "diesel",
+   "time": "08:20",
+   "cap": 3,
+   "route": [
+    "patr",
+    "cent",
+    "upv"
+   ],
+   "pax": [
+    {
+     "name": "Carla",
+     "up": 1,
+     "down": 2
+    }
+   ],
+   "f": false
+  },
+  {
+   "id": 12,
+   "name": "Laura",
+   "uni": "uv",
+   "model": "Toyota Yaris",
+   "type": "hybrid",
+   "time": "08:00",
+   "cap": 3,
+   "route": [
+    "silla",
+    "alfaf",
+    "mal",
+    "uvb"
+   ],
+   "pax": [],
+   "f": true
+  }
+ ],
+ "extra": [
+  {
+   "name": "Álvaro",
+   "uni": "upv",
+   "model": "Seat León",
+   "type": "petrol",
+   "f": false
+  },
+  {
+   "name": "Carmen",
+   "uni": "uv",
+   "model": "Toyota C-HR",
+   "type": "hybrid",
+   "f": true
+  },
+  {
+   "name": "Youssef",
+   "uni": "upv",
+   "model": "Skoda Fabia",
+   "type": "diesel",
+   "f": false
+  },
+  {
+   "name": "Paula F.",
+   "uni": "ceu",
+   "model": "Citroën C3",
+   "type": "petrol",
+   "f": true
+  }
+ ]
+}

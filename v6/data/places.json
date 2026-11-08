@@ -1,0 +1,284 @@
+{
+ "_note": "Lugares frecuentes (selección rápida). Coordenadas aproximadas; campus según OpenStreetMap/Photon.",
+ "places": [
+  {
+   "id": "upv",
+   "n": "UPV · Campus de Vera",
+   "g": "campus",
+   "lat": 39.48085,
+   "lng": -0.34203,
+   "uni": "upv"
+  },
+  {
+   "id": "uvt",
+   "n": "UV · Campus de Tarongers",
+   "g": "campus",
+   "lat": 39.47775,
+   "lng": -0.34262,
+   "uni": "uv"
+  },
+  {
+   "id": "uvb",
+   "n": "UV · Campus de Blasco Ibáñez",
+   "g": "campus",
+   "lat": 39.47957,
+   "lng": -0.36334,
+   "uni": "uv"
+  },
+  {
+   "id": "uvbp",
+   "n": "UV · Campus de Burjassot-Paterna",
+   "g": "campus",
+   "lat": 39.5074,
+   "lng": -0.41984,
+   "uni": "uv"
+  },
+  {
+   "id": "ceu",
+   "n": "CEU-UCH · Alfara del Patriarca",
+   "g": "campus",
+   "lat": 39.55074,
+   "lng": -0.38836,
+   "uni": "ceu"
+  },
+  {
+   "id": "ceuv",
+   "n": "CEU-UCH · Valencia (Palacio de Colomina)",
+   "g": "campus",
+   "lat": 39.47666,
+   "lng": -0.37431,
+   "uni": "ceu"
+  },
+  {
+   "id": "cent",
+   "n": "Centro (Plaza del Ayuntamiento)",
+   "g": "city",
+   "lat": 39.4697,
+   "lng": -0.3763
+  },
+  {
+   "id": "norte",
+   "n": "Estación del Norte",
+   "g": "city",
+   "lat": 39.4664,
+   "lng": -0.3772
+  },
+  {
+   "id": "ruz",
+   "n": "Russafa",
+   "g": "city",
+   "lat": 39.4612,
+   "lng": -0.3743
+  },
+  {
+   "id": "bmc",
+   "n": "Benimaclet",
+   "g": "city",
+   "lat": 39.487,
+   "lng": -0.359
+  },
+  {
+   "id": "camp",
+   "n": "Campanar",
+   "g": "city",
+   "lat": 39.4842,
+   "lng": -0.394
+  },
+  {
+   "id": "patr",
+   "n": "Patraix",
+   "g": "city",
+   "lat": 39.46,
+   "lng": -0.397
+  },
+  {
+   "id": "cab",
+   "n": "El Cabanyal",
+   "g": "city",
+   "lat": 39.469,
+   "lng": -0.329
+  },
+  {
+   "id": "mal",
+   "n": "Malilla",
+   "g": "city",
+   "lat": 39.45,
+   "lng": -0.377
+  },
+  {
+   "id": "orr",
+   "n": "Orriols",
+   "g": "city",
+   "lat": 39.495,
+   "lng": -0.377
+  },
+  {
+   "id": "cac",
+   "n": "Ciudad de las Artes y las Ciencias",
+   "g": "city",
+   "lat": 39.455,
+   "lng": -0.353
+  },
+  {
+   "id": "puig",
+   "n": "El Puig",
+   "g": "metro",
+   "lat": 39.589,
+   "lng": -0.303
+  },
+  {
+   "id": "pucol",
+   "n": "Puçol",
+   "g": "metro",
+   "lat": 39.617,
+   "lng": -0.303
+  },
+  {
+   "id": "sag",
+   "n": "Sagunto",
+   "g": "metro",
+   "lat": 39.679,
+   "lng": -0.278
+  },
+  {
+   "id": "mass",
+   "n": "Massamagrell",
+   "g": "metro",
+   "lat": 39.57,
+   "lng": -0.33
+  },
+  {
+   "id": "mel",
+   "n": "Meliana",
+   "g": "metro",
+   "lat": 39.528,
+   "lng": -0.349
+  },
+  {
+   "id": "albo",
+   "n": "Alboraia",
+   "g": "metro",
+   "lat": 39.5,
+   "lng": -0.35
+  },
+  {
+   "id": "monc",
+   "n": "Moncada",
+   "g": "metro",
+   "lat": 39.545,
+   "lng": -0.395
+  },
+  {
+   "id": "burj",
+   "n": "Burjassot",
+   "g": "metro",
+   "lat": 39.509,
+   "lng": -0.413
+  },
+  {
+   "id": "god",
+   "n": "Godella",
+   "g": "metro",
+   "lat": 39.52,
+   "lng": -0.411
+  },
+  {
+   "id": "pat",
+   "n": "Paterna",
+   "g": "metro",
+   "lat": 39.503,
+   "lng": -0.44
+  },
+  {
+   "id": "betera",
+   "n": "Bétera",
+   "g": "metro",
+   "lat": 39.592,
+   "lng": -0.462
+  },
+  {
+   "id": "manis",
+   "n": "Manises",
+   "g": "metro",
+   "lat": 39.493,
+   "lng": -0.463
+  },
+  {
+   "id": "quart",
+   "n": "Quart de Poblet",
+   "g": "metro",
+   "lat": 39.481,
+   "lng": -0.441
+  },
+  {
+   "id": "misl",
+   "n": "Mislata",
+   "g": "metro",
+   "lat": 39.475,
+   "lng": -0.418
+  },
+  {
+   "id": "xir",
+   "n": "Xirivella",
+   "g": "metro",
+   "lat": 39.465,
+   "lng": -0.428
+  },
+  {
+   "id": "alaq",
+   "n": "Alaquàs",
+   "g": "metro",
+   "lat": 39.457,
+   "lng": -0.461
+  },
+  {
+   "id": "torr",
+   "n": "Torrent",
+   "g": "metro",
+   "lat": 39.437,
+   "lng": -0.465
+  },
+  {
+   "id": "alfaf",
+   "n": "Alfafar",
+   "g": "metro",
+   "lat": 39.422,
+   "lng": -0.39
+  },
+  {
+   "id": "cata",
+   "n": "Catarroja",
+   "g": "metro",
+   "lat": 39.403,
+   "lng": -0.404
+  },
+  {
+   "id": "silla",
+   "n": "Silla",
+   "g": "metro",
+   "lat": 39.362,
+   "lng": -0.411
+  },
+  {
+   "id": "pica",
+   "n": "Picassent",
+   "g": "metro",
+   "lat": 39.363,
+   "lng": -0.46
+  },
+  {
+   "id": "ribar",
+   "n": "Riba-roja de Túria",
+   "g": "metro",
+   "lat": 39.547,
+   "lng": -0.565
+  },
+  {
+   "id": "eliana",
+   "n": "L'Eliana",
+   "g": "metro",
+   "lat": 39.566,
+   "lng": -0.528
+  }
+ ]
+}
