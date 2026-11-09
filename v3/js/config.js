@@ -5,7 +5,7 @@ window.FF_CONFIG = {
   UMAMI_WEBSITE_ID: "",
   UMAMI_SCRIPT_URL: "https://cloud.umami.is/script.js",
   SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycbx7S6x-_nl03Rj6QYp78ePDYIxOHUlPuoCUAyBgnMmM1-jbc8Cmeb-NN3ijqnc-X7v87A/exec", // el de v2, sin cambios
-  USE_SESSION_ID: false,
+  USE_SESSION_ID: true,
   HEARTBEAT_S: 15,
   HEARTBEAT_MAX_S: 300,
 
