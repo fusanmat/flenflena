@@ -1109,5 +1109,5 @@
     track("view", {});
   }).catch(function (err) { console.error(err); });
 
-  window.FF_DEBUG = { access: ACCESS, hSetTo: function (p) { hToF.set(p); H.to = p; hDraw(); }, place: function (id) { return placePt(id); }, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); } };
+  window.FF_DEBUG = { access: ACCESS, hSetTo: function (p) { hToF.set(p); H.to = p; hDraw(); }, hSetFrom: function (p) { hFromF.set(p); H.from = p; hDraw(); }, place: function (id) { return placePt(id); }, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); } };
 })();

@@ -14,7 +14,7 @@ window.FF_CONFIG = {
   OSRM_URL: "https://router.project-osrm.org/route/v1/driving/",
   OSRM_TIMEOUT_MS: 7000,
   PHOTON_URL: "https://photon.komoot.io/api/",
-  VALENCIA_BBOX: [-0.62, 39.33, -0.20, 39.70],
+  VALENCIA_BBOX: [-0.62, 39.08, -0.20, 39.70], // sur ampliado (antes 39,33) para incluir Alzira y Carcaixent (Ribera Alta)
   STRAIGHT_LINE_FACTOR: 1.3,
   SPEED_KM_MIN: 0.55,        // ≈ 33 km/h, solo si OSRM no responde
   ARRIVAL_TOLERANCE_MIN: 10, // margen mostrado en las tarjetas (estimación)
