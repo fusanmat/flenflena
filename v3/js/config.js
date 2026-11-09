@@ -49,7 +49,7 @@ window.FF_CONFIG = {
   VARIANTS: { A: { hero: "community" }, B: { hero: "savings" } },
   DEFAULT_VARIANT: "A",
   // ?src= solo acepta estos valores; cualquier otro se registra como "other" (evita filtrar texto privado)
-  SRC_ALLOWED: ["direct", "qr", "poster", "whatsapp", "instagram", "x", "email", "class", "flyer", "linkedin"],
+  SRC_ALLOWED: ["direct", "qr", "poster", "whatsapp", "instagram", "x", "email", "class", "flyer", "linkedin", "form"],
 
   // Maqueta: sin verificación real ni servidor de cuentas (ver js/auth.js).
   // Dominios institucionales admitidos. Coincidencia exacta; subdominios solo con regla explícita (subdomainsOf).
