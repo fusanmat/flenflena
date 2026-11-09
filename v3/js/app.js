@@ -10,7 +10,23 @@
 
   /* ---------- Contexto (variante, origen, idioma) ---------- */
   var qs = new URLSearchParams(location.search);
-  var vKey = (qs.get("v") || "").toUpperCase(); if (!CFG.VARIANTS[vKey]) vKey = CFG.DEFAULT_VARIANT;
+  /* Variante A/B: ?v=A|B manda y se guarda; si no, se reutiliza sessionStorage; si es la 1ª visita, 50/50. */
+  var vParam = (qs.get("v") || "").toUpperCase();
+  var vKey = null;
+  if (CFG.VARIANTS[vParam]) {
+    vKey = vParam;
+    try { sessionStorage.setItem("ff_variant", vKey); } catch (e) {}
+  } else {
+    try {
+      var stored = sessionStorage.getItem("ff_variant");
+      if (stored && CFG.VARIANTS[stored]) vKey = stored;
+    } catch (e) {}
+    if (!vKey) {
+      vKey = Math.random() < 0.5 ? "A" : "B";
+      if (!CFG.VARIANTS[vKey]) vKey = CFG.DEFAULT_VARIANT;
+      try { sessionStorage.setItem("ff_variant", vKey); } catch (e) {}
+    }
+  }
   var variant = CFG.VARIANTS[vKey];
   var srcRaw = (qs.get("src") || "").toLowerCase();
   var src = !srcRaw ? "direct" : (CFG.SRC_ALLOWED.indexOf(srcRaw) >= 0 ? srcRaw : "other");
