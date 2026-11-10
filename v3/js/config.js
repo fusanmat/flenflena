@@ -19,14 +19,23 @@ window.FF_CONFIG = {
   SPEED_KM_MIN: 0.55,        // ≈ 33 km/h, solo si OSRM no responde
   ARRIVAL_TOLERANCE_MIN: 10, // margen mostrado en las tarjetas (estimación)
 
-  // Tarifa única (supuestos ilustrativos de energía por km; sin GLP)
+  // Tarifa única. costPerKm de reserva si no carga data/fuel_prices.json (precios oficiales semanales).
+  // €/km = precio €/L (o €/kWh) × consumo / 100. Sin GLP.
   FARE: {
     costPerKm: {
-      petrol: 0.139, // 7,89 L/100 km × 1,758 €/L (notas 2-nov-2026)
-      diesel: 0.130, // 6,88 L/100 km × 1,896 €/L
-      hybrid: 0.100, // SUPUESTO: punto intermedio
-      ev:     0.061  // 19,1 kWh/100 km × 0,3166 €/kWh (carga en casa)
+      petrol: 0.139, // reserva: 7,89 L/100 km × 1,758 €/L (notas 2-nov-2026)
+      diesel: 0.130, // reserva: 6,88 L/100 km × 1,896 €/L
+      hybrid: 0.100, // reserva: SUPUESTO, punto intermedio
+      ev:     0.061  // reserva: 19,1 kWh/100 km × 0,3166 €/kWh (carga en casa)
     },
+    consumption: {   // L/100 km (o kWh/100 km el eléctrico); el híbrido es un SUPUESTO
+      petrol: 7.89,
+      diesel: 6.88,
+      hybrid: 5.0,
+      ev: 19.1
+    },
+    fallbackEurL: { petrol: 1.758, diesel: 1.896 },
+    evEurKwh: 0.3166, // supuesto: carga en casa (no hay serie oficial semanal sin token)
     fee: 0.15,       // tarifa de servicio: 15 % del subtotal; solo se explica en «Cómo calculamos el precio»
     minFare: 0.50    // mínimo por plaza; el ajuste NO va al conductor (decisión abierta)
   },

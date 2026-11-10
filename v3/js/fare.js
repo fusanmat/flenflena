@@ -1,5 +1,6 @@
 /* Flenflena · motor de tarifas ÚNICO (tarjetas, explicación, reserva, vista de conductor, calculadora de ahorro).
-   Coste del tramo      = km × coste de energía €/km del coche (gasolina, diésel, híbrido, eléctrico; supuestos ilustrativos)
+   Coste del tramo      = km × coste de energía €/km del coche (gasolina, diésel, híbrido, eléctrico).
+   €/km                = precio oficial €/L (o €/kWh supuesto) × consumo / 100; si falta fuel_prices.json, valores de reserva
    S (plazas del coche) = plazas para pasajeros ofrecidas (cap / p_cap) + 1 conductor. Sin campo nuevo.
    Parte por plaza      = coste del tramo ÷ S  (conductor incluido; da igual cuántas plazas estén ocupadas)
    Un pasajero que reserva 2 plazas paga 2 partes. Las plazas vacías no se facturan (sin complemento al conductor).
@@ -66,5 +67,67 @@
     return Object.freeze(q);
   }
 
-  root.FFFare = { calcTrip: calcTrip, simple: simple, freezeQuote: freezeQuote, r2: r2, floor2: floor2 };
+
+  function r4(x) { return Math.round((x + 1e-12) * 10000) / 10000; }
+  function cpkFrom(price, consPer100) { return r4(price * consPer100 / 100); }
+
+  /* fuel: { petrol_eur_l, diesel_eur_l, ev_eur_kwh? }. Devuelve { ok, fallback, costPerKm, meta } sin mutar params. */
+  function validateFuel(fuel) {
+    if (!fuel || typeof fuel !== "object") return null;
+    var p = Number(fuel.petrol_eur_l), d = Number(fuel.diesel_eur_l);
+    if (!(p >= 1 && p <= 2.5) || !(d >= 1 && d <= 2.5)) return null;
+    var ev = fuel.ev_eur_kwh == null || fuel.ev_eur_kwh === "" ? null : Number(fuel.ev_eur_kwh);
+    if (ev != null && !(ev > 0 && ev < 2)) return null;
+    var n = fuel.n_stations;
+    if (typeof n === "number" && n < 1) return null;
+    if (n && typeof n === "object") {
+      var np = n.petrol, nd = n.diesel;
+      if (np != null && Number(np) < 1) return null;
+      if (nd != null && Number(nd) < 1) return null;
+    }
+    return { petrol_eur_l: p, diesel_eur_l: d, ev_eur_kwh: ev };
+  }
+
+  function applyFuel(params, fuel) {
+    var cons = (params && params.consumption) || {};
+    var evDef = (params && params.evEurKwh) || 0.3166;
+    var fbCpk = params && params.costPerKm ? {
+      petrol: params.costPerKm.petrol, diesel: params.costPerKm.diesel,
+      hybrid: params.costPerKm.hybrid, ev: params.costPerKm.ev
+    } : null;
+    var v = validateFuel(fuel);
+    if (!v || cons.petrol == null || cons.diesel == null || cons.hybrid == null || cons.ev == null) {
+      return {
+        ok: false, fallback: true, costPerKm: fbCpk,
+        meta: {
+          fallback: true,
+          petrol_eur_l: params && params.fallbackEurL ? params.fallbackEurL.petrol : null,
+          diesel_eur_l: params && params.fallbackEurL ? params.fallbackEurL.diesel : null,
+          ev_eur_kwh: evDef
+        }
+      };
+    }
+    var evKwh = v.ev_eur_kwh == null ? evDef : v.ev_eur_kwh;
+    var cpk = {
+      petrol: cpkFrom(v.petrol_eur_l, cons.petrol),
+      diesel: cpkFrom(v.diesel_eur_l, cons.diesel),
+      hybrid: cpkFrom(v.petrol_eur_l, cons.hybrid),
+      ev: cpkFrom(evKwh, cons.ev)
+    };
+    return {
+      ok: true, fallback: false, costPerKm: cpk,
+      meta: {
+        fallback: false,
+        petrol_eur_l: v.petrol_eur_l,
+        diesel_eur_l: v.diesel_eur_l,
+        ev_eur_kwh: evKwh,
+        date: fuel.date || fuel.week || "",
+        source: fuel.source || "",
+        source_url: fuel.source_url || fuel.api_url || "",
+        n_stations: fuel.n_stations || null
+      }
+    };
+  }
+
+  root.FFFare = { calcTrip: calcTrip, simple: simple, freezeQuote: freezeQuote, r2: r2, floor2: floor2, r4: r4, cpkFrom: cpkFrom, validateFuel: validateFuel, applyFuel: applyFuel };
 })(typeof window !== "undefined" ? window : module.exports);

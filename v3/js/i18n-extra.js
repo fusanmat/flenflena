@@ -319,3 +319,19 @@
     rv_cancel: "In the real service, cancellation would be free. If you were the only rider, the driver would receive nothing for that seat. No booking or payment has been made here."
   });
 })();
+
+/* Precios oficiales de combustible (fuel_prices.json) y supuestos de consumo. */
+(function () {
+  Object.assign(window.FF_I18N.es, {
+    b_formula: "Coste del tramo = km × {cpk} €/km ({car})",
+    b_fuel: "Precio del combustible: gasolina {petrol} €/L, gasóleo {diesel} €/L, semana del {date}, fuente:",
+    b_fuel_fb: "Precio del combustible no disponible; se usan valores de reserva (gasolina {petrol} €/L, gasóleo {diesel} €/L).",
+    b_assump: "Consumo supuesto: gasolina 7,89 L/100 km, gasóleo 6,88 L/100 km, híbrido 5,0 L/100 km de gasolina (SUPUESTO), eléctrico 19,1 kWh/100 km. Coste €/km = precio × consumo / 100. El precio del kWh (0,3166 €/kWh, carga en casa) es un supuesto. Cada coche usa su propio coste: dos coches distintos pueden dar precios distintos para la misma ruta."
+  });
+  Object.assign(window.FF_I18N.en, {
+    b_formula: "Leg cost = km × €{cpk}/km ({car})",
+    b_fuel: "Fuel price: petrol {petrol} €/L, diesel {diesel} €/L, week of {date}, source:",
+    b_fuel_fb: "Official fuel prices could not be loaded; reserve values are used (petrol {petrol} €/L, diesel {diesel} €/L).",
+    b_assump: "Consumption assumptions: petrol 7.89 L/100 km, diesel 6.88 L/100 km, hybrid 5.0 L/100 km of petrol (ASSUMPTION), electric 19.1 kWh/100 km. €/km = price × consumption / 100. The kWh price (0.3166 €/kWh, home charging) is an assumption. Each car uses its own cost, so two different cars can give different prices for the same route."
+  });
+})();

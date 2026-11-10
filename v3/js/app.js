@@ -35,6 +35,30 @@
 
   var DEF = JSON.parse(JSON.stringify(CFG.FARE));
   var P = JSON.parse(JSON.stringify(CFG.FARE));
+  var FUEL = { fallback: true, petrol_eur_l: (P.fallbackEurL || {}).petrol, diesel_eur_l: (P.fallbackEurL || {}).diesel, ev_eur_kwh: P.evEurKwh, date: "", source: "", source_url: "" };
+  function applyFuelFile(data) {
+    var r = F.applyFuel(P, data);
+    if (r.ok && r.costPerKm) P.costPerKm = r.costPerKm;
+    FUEL = r.meta || FUEL;
+    return r.ok;
+  }
+  function fuelDateLabel(iso) {
+    var m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+    return m ? m[3] + "/" + m[2] + "/" + m[1] : "";
+  }
+  function fuelLineHtml() {
+    var date = fuelDateLabel(FUEL.date);
+    var key = FUEL.fallback ? "b_fuel_fb" : "b_fuel";
+    var body = t(key, {
+      petrol: FUEL.petrol_eur_l != null ? nf(FUEL.petrol_eur_l, 3) : "—",
+      diesel: FUEL.diesel_eur_l != null ? nf(FUEL.diesel_eur_l, 3) : "—",
+      date: date || "—"
+    });
+    var src = FUEL.source || "", url = FUEL.source_url || "";
+    if (FUEL.fallback) return esc(body);
+    var link = url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(src || url) + "</a>" : esc(src);
+    return esc(body) + (link ? " " + link : "");
+  }
 
   /* ---------- Formatos e i18n ---------- */
   function loc() { return lang === "en" ? "en-GB" : "es-ES"; }
@@ -635,6 +659,7 @@
     var h = "<h3>" + esc(t("b_title")) + "</h3>";
     h += '<div class="price" style="font-size:30px">' + eur(me.price) + '</div><div class="tiny muted">' + esc(t("c_price_sub", { seats: seatsTxt(S.seats) })) + "</div>";
     h += '<p class="calcline">' + esc(t("b_formula", { cpk: nf(c.cpk, 3), car: t("car_" + m.car) })) + "</p>";
+    h += '<p class="tiny muted" style="margin:4px 0 0" id="s-fuel-line">' + fuelLineHtml() + "</p>";
     h += '<div class="scroll"><table><thead><tr><th>' + esc(t("b_leg")) + '</th><th class="r">' + esc(t("b_km")) + '</th><th class="r">' + esc(t("b_cost")) + '</th><th class="r">' + esc(t("b_people")) + '</th><th class="r">' + esc(t("b_share")) + "</th></tr></thead><tbody>";
     for (var i = m.up; i < m.down; i++) {
       var lg = c.legs[i];
@@ -823,6 +848,7 @@
     $("p-warn").innerHTML = over ? '<p class="status warn">' + esc(t("p_over", { leg: over.leg, n: over.n, cap: pp.cap })) + "</p>" : "";
     var h = "<h3>" + esc(t("p_br_title")) + "</h3>";
     h += '<p class="calcline">' + esc(t("b_formula", { cpk: nf(c.cpk, 3), car: t("car_" + pp.car) })) + "</p>";
+    h += '<p class="tiny muted" style="margin:4px 0 0" id="p-fuel-line">' + fuelLineHtml() + "</p>";
     h += '<div class="kpis">' + kpi(eur(c.tot.carCost), t("p_trip_cost"), "o") + kpi(eur(c.tot.recovered), t("p_recovered"), "gg") + kpi(eur(Math.max(0, c.tot.driverOwn)), t("p_own"), "") + "</div>";
     h += '<div class="kpis" style="margin-top:8px">' + kpi(String(PB.pax.length), t("p_conf"), "b") + kpi(String(Math.max(0, minFree === Infinity ? pp.cap : minFree)), t("p_free"), "") + "</div>";
     if (PB.pax.length) {
@@ -1071,7 +1097,14 @@
   var lateClassWhen = function () { return { date: today(), time: "18:00" }; };
 
   /* ---------- Arranque ---------- */
-  Promise.all([getJSON("data/places.json"), getJSON("data/trips.json"), getJSON("data/zones.json"), getJSON("data/ref_routes.json")]).then(function (d) {
+  Promise.all([
+    getJSON("data/places.json"),
+    getJSON("data/trips.json"),
+    getJSON("data/zones.json"),
+    getJSON("data/ref_routes.json"),
+    getJSON("data/fuel_prices.json").then(function (f) { return f; }, function () { return null; })
+  ]).then(function (d) {
+    applyFuelFile(d[4]);
     DATA.places = d[0].places; DATA.places.forEach(function (p) { PL[p.id] = p; });
     DATA.zones = d[2]; DATA.routes = d[3].routes;
     TRIPS = d[1].trips.map(function (tr) { return Object.assign({}, tr, { route: tr.route.map(placePt) }); });
@@ -1157,5 +1190,5 @@
     track("view", {});
   }).catch(function (err) { console.error(err); });
 
-  window.FF_DEBUG = { access: ACCESS, hSetTo: function (p) { hToF.set(p); H.to = p; hDraw(); }, hSetFrom: function (p) { hFromF.set(p); H.from = p; hDraw(); }, place: function (id) { return placePt(id); }, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); }, applyLatePreset: function () { applyLatePreset(); }, lateClassWhen: function () { return lateClassWhen(); } };
+  window.FF_DEBUG = { access: ACCESS, hSetTo: function (p) { hToF.set(p); H.to = p; hDraw(); }, hSetFrom: function (p) { hFromF.set(p); H.from = p; hDraw(); }, place: function (id) { return placePt(id); }, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, fuel: function () { return FUEL; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); }, applyLatePreset: function () { applyLatePreset(); }, lateClassWhen: function () { return lateClassWhen(); } };
 })();
