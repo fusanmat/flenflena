@@ -271,3 +271,21 @@
     trust: "Built for València's university community: real access would require verifying a university email. Flenflena is not a service of any university and is not endorsed by one. Profiles shown are fictitious."
   });
 })();
+
+/* Enfoque trayectos largos, anticipo al conductor, nota junto a Reservar. */
+(function () {
+  Object.assign(window.FF_I18N.es, {
+    focus_line: "Pensado para quien vive a 15-40 km y no tiene transporte directo",
+    preset_late: "Clase tarde, ~10 km a casa",
+    hero_lead_savings: "¿Sin coche? Viaja con quien ya hace tu camino. Ejemplo: Alzira → UPV ({km} km): {price} por persona en un coche de gasolina con una persona más.",
+    p_payout: "Recibes {x} en la app poco después del viaje, nunca más que el coste real.",
+    book_note: "Coste de combustible compartido, no una tarifa."
+  });
+  Object.assign(window.FF_I18N.en, {
+    focus_line: "Made for people 15-40 km out with no direct transit",
+    preset_late: "Late class, ~10 km home",
+    hero_lead_savings: "No car? Ride with someone already going your way. Example: Alzira → UPV ({km} km): {price} per person in a petrol car with one other person.",
+    p_payout: "You receive {x} in the app shortly after the trip, never more than the real cost.",
+    book_note: "Shared fuel cost, not a fare."
+  });
+})();

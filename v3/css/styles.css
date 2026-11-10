@@ -328,3 +328,13 @@ body.signed .overlay,body.signed .lockbar{display:none}
 .hm-legend .sw{display:inline-block;width:22px;height:5px;border-radius:3px;vertical-align:middle;margin-right:6px}
 .hm-legend .sw.sel{background:#F26B1D}.hm-legend .sw.demo{background:#0F1B3D;opacity:.3}
 @media (max-width:900px){.mapbox.hmap{height:240px}}
+
+/* Trayectos largos: línea de enfoque, atajo y notas de precio */
+.focus-line{margin:10px 0 0;max-width:56ch;overflow-wrap:anywhere}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.presets .btn{white-space:normal;height:auto;min-height:36px;line-height:1.25;text-align:center;max-width:100%}
+.book-note{margin:8px 0 0;text-align:right;overflow-wrap:anywhere;max-width:100%}
+.p-payout{margin:12px 0 0;font-weight:700;overflow-wrap:anywhere}
+@media (max-width:520px){
+  .book-note{text-align:left}
+}

@@ -518,7 +518,8 @@
       (tr.published ? '<span class="chip">' + esc(t("pub_note")) + "</span>" : "") +
       '<button type="button" class="chip g cancelchip" data-act="cancel">' + esc(t("c_cancel")) + " ›</button></div>" +
       (compact ? "" : '<div class="acts"><button class="btn ghost sm" type="button" data-act="break">' + esc(t("btn_break")) + "</button>" +
-      '<button class="btn sm" type="button" data-act="reserve">' + esc(t("btn_reserve", { x: eur(m.me.price) })) + "</button></div>") + "</article>";
+      '<button class="btn sm" type="button" data-act="reserve">' + esc(t("btn_reserve", { x: eur(m.me.price) })) + "</button></div>" +
+      '<p class="tiny muted book-note">' + esc(t("book_note")) + "</p>") + "</article>";
   }
 
   function renderResults() {
@@ -827,6 +828,7 @@
       c.pax.forEach(function (r, i) { var p = PB.pax[i]; h += "<tr><td>" + esc(p.name || "—") + "</td><td>" + (p.up + 1) + "→" + (p.down + 1) + '</td><td class="r">' + eur(r.price) + '</td><td class="r">' + eur(r.recovery) + "</td></tr>"; });
       h += '<tr class="tot"><td colspan="2">' + esc(t("b_totals")) + '</td><td class="r">' + eur(c.tot.paid) + '</td><td class="r">' + eur(c.tot.recovered) + "</td></tr></tbody></table></div>";
     } else h += '<p class="small muted">' + esc(t("p_err_nopax")) + "</p>";
+    h += '<p class="p-payout" id="p-payout">' + esc(t("p_payout", { x: eur(c.tot.recovered) })) + "</p>";
     h += '<p class="small" style="margin:10px 0 0">' + esc(t("p_never")) + "</p>";
     brk.innerHTML = h;
   }
@@ -865,7 +867,8 @@
   function heroLead() {
     var el = $("heroLead");
     if (variant.hero === "savings") {
-      var r = DATA.routes.filter(function (x) { return x.from === "puig" && x.to === "upv"; })[0], km = r ? r.km : 16.1;
+      var r = DATA.routes.filter(function (x) { return x.from === "alzira" && x.to === "upv"; })[0];
+      var km = r ? r.km : Math.round(hav(placePt("alzira"), placePt("upv")) * CFG.STRAIGHT_LINE_FACTOR * 10) / 10;
       el.textContent = t("hero_lead_savings", { km: km1(km), price: eur(F.simple(km, 1, P, "petrol").pax[0].price) });
     } else el.textContent = t("hero_lead_community");
   }
@@ -1061,6 +1064,10 @@
   }
   addEventListener("hashchange", show);
 
+  /* ---------- Atajo «Clase tarde» (UPV Vera → Alfafar, ~10 km, 18:00) ---------- */
+  var applyLatePreset = function () {};
+  var lateClassWhen = function () { return { date: today(), time: "18:00" }; };
+
   /* ---------- Arranque ---------- */
   Promise.all([getJSON("data/places.json"), getJSON("data/trips.json"), getJSON("data/zones.json"), getJSON("data/ref_routes.json")]).then(function (d) {
     DATA.places = d[0].places; DATA.places.forEach(function (p) { PL[p.id] = p; });
@@ -1083,7 +1090,7 @@
     hMap = makeMap("h-map"); hLayer = L.layerGroup().addTo(hMap);
     hFromF = addrField($("h-from"), $("h-from-q"), function (p) { H.from = p; hDraw(); }, null);
     hToF = addrField($("h-to"), $("h-to-q"), function (p) { H.to = p; hDraw(); }, null);
-    H.from = placePt("puig"); H.to = placePt("upv"); hFromF.set(H.from); hToF.set(H.to); hDraw();
+    H.from = placePt("alzira"); H.to = placePt("upv"); hFromF.set(H.from); hToF.set(H.to); hDraw();
 
     // Buscar
     var clickR = qsa('input[name="s-click"]');
@@ -1091,7 +1098,7 @@
     function setTo(p) { S.to = p; sStatus(""); }
     fromF = addrField($("s-from"), $("s-from-q"), function (p) { setFrom(p); if (S.to) runSearch(); else sDrawPoints(); }, function () { clickR[0].checked = true; });
     toF = addrField($("s-to"), $("s-to-q"), function (p) { setTo(p); if (S.from) runSearch(); else sDrawPoints(); }, function () { clickR[1].checked = true; });
-    S.from = placePt("puig"); S.to = placePt("upv"); fromF.set(S.from); toF.set(S.to);
+    S.from = placePt("alzira"); S.to = placePt("upv"); fromF.set(S.from); toF.set(S.to);
     sMap.on("click", function (e) {
       var p = mapPoint(e.latlng);
       if (!inBBox(p)) { sStatus(t("st_outside"), true); return; }
@@ -1103,6 +1110,29 @@
     ["s-seats", "s-time", "s-mode", "s-date"].forEach(function (id) {
       $(id).addEventListener("change", function () { if (S.res.length) runSearch(); else sRead(); });
     });
+    lateClassWhen = function () {
+      var time = "18:00";
+      var tm = new Date();
+      if (dateTimeErr(today(), time)) tm.setDate(tm.getDate() + 1);
+      return { date: ymd(tm), time: time };
+    };
+    applyLatePreset = function () {
+      var from = placePt("upv"), to = placePt("alfaf"), when = lateClassWhen();
+      S.from = from; S.to = to;
+      fromF.set(from); toF.set(to);
+      $("s-mode").value = "depart";
+      $("s-time").value = when.time;
+      $("s-date").value = when.date;
+      $("s-seats").value = "1";
+      $("s-repeat").checked = false;
+      S.women = false;
+      $("s-women").setAttribute("aria-pressed", "false");
+      $("s-women").classList.remove("on");
+      sRead();
+      if (location.hash !== "#buscar") location.hash = "#buscar";
+      runSearch();
+    };
+    ["h-preset-late", "s-preset-late"].forEach(function (id) { $(id).onclick = applyLatePreset; });
     sDrawPoints(); renderBreak();
 
     // Publicar
@@ -1125,5 +1155,5 @@
     track("view", {});
   }).catch(function (err) { console.error(err); });
 
-  window.FF_DEBUG = { access: ACCESS, hSetTo: function (p) { hToF.set(p); H.to = p; hDraw(); }, hSetFrom: function (p) { hFromF.set(p); H.from = p; hDraw(); }, place: function (id) { return placePt(id); }, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); } };
+  window.FF_DEBUG = { access: ACCESS, hSetTo: function (p) { hToF.set(p); H.to = p; hDraw(); }, hSetFrom: function (p) { hFromF.set(p); H.from = p; hDraw(); }, place: function (id) { return placePt(id); }, unlocked: unlocked, fitsTime: fitsTime, F: F, P: function () { return P; }, S: S, PB: PB, quote: function () { return QUOTE; }, zoneOf: zoneOf, slotOfTime: slotOfTime, dateTimeErr: dateTimeErr, sMap: function () { return sMap; }, run: function () { runSearch(); }, applyLatePreset: function () { applyLatePreset(); }, lateClassWhen: function () { return lateClassWhen(); } };
 })();
