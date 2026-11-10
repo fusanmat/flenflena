@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Refresh v3/data/fuel_prices.json from an official, keyless public source.
+"""Update v3/data/fuel_prices.json from an official, keyless public source.
+
+The committed JSON is a snapshot dated in the file (date / fetched_at).
+There is no scheduled refresh; run this script manually only if the
+snapshot ever needs updating.
 
 Primary: MITECO / Geoportal Gasolineras REST API, province 46 (Valencia).
   GET .../EstacionesTerrestres/FiltroProvincia/46
   Averages "Precio Gasolina 95 E5" and "Precio Gasoleo A" over stations
   that post a price in the sanity range 1.0–2.5 €/L.
 
-Alternative (not used here; official, also keyless, Spain-wide weekly):
+Alternative (not used here; official, also keyless, Spain-wide):
   EU Weekly Oil Bulletin — Euro-super 95 and diesel, Spain
   https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en
 
@@ -15,8 +19,7 @@ figure (home-charging assumption) is kept as ev_eur_kwh in the JSON.
 
 On a failed fetch or failed sanity check the existing file is left
 unchanged and the process exits 1 (the site keeps the last good file).
-If prices/date/station counts are unchanged, the file is not rewritten
-(so the weekly Action commits only when something actually changed).
+If prices/date/station counts are unchanged, the file is not rewritten.
 """
 from __future__ import annotations
 
@@ -87,7 +90,7 @@ def fetch():
     req = urllib.request.Request(
         API_URL,
         headers={
-            "User-Agent": "Flenflena/v3 fuel-prices (weekly official average)",
+            "User-Agent": "Flenflena/v3 fuel-prices (official snapshot average)",
             "Accept": "application/json",
         },
     )

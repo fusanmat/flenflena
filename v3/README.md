@@ -23,7 +23,7 @@ Mismos eventos, claves (lista blanca de `track.js`) y destino (`SHEET_ENDPOINT`,
 `config.js → VALENCIA_BBOX = [-0.62, 39.08, -0.20, 39.70]` (oeste, sur, este, norte). El límite sur se amplió de 39,33 a 39,08 para incluir Alzira. Photon y los clics en el mapa se limitan a esta caja. Lugares conocidos añadidos (con zona `mun_*` para las métricas): Almussafes, Benifaió, Algemesí, Alzira y Carcaixent.
 
 ## Tarifa y ahorro
-Una sola función en `js/fare.js` (coste/km por motor ÷ ocupantes; comisión del 15 %; ajuste mínimo separado; cotización congelada al confirmar). Las comparativas en `js/savings.js` muestran sus supuestos y fuentes con fecha.
+Una sola función en `js/fare.js` (coste/km por motor ÷ ocupantes; comisión del 15 %; ajuste mínimo separado; cotización congelada al confirmar). Las comparativas en `js/savings.js` muestran sus supuestos y fuentes con fecha. Los precios de combustible son una instantánea fechada en `data/fuel_prices.json` (MITECO, provincia de Valencia); se actualizan solo a mano, si hace falta, con `tools/update-fuel-prices.py`.
 
 ## Pruebas
 `node tests/auth.test.js && node tests/fare.test.js && node tests/mapinput.test.js && node tests/static.test.js && JSDOM=/path/jsdom node tests/dom.smoke.js`
