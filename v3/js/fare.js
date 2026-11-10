@@ -1,7 +1,10 @@
 /* Flenflena · motor de tarifas ÚNICO (tarjetas, explicación, reserva, vista de conductor, calculadora de ahorro).
    Coste del tramo      = km × coste de energía €/km del coche (gasolina, diésel, híbrido, eléctrico; supuestos ilustrativos)
-   Parte por persona    = coste del tramo ÷ (pasajeros a bordo + 1 conductor)
-   Recuperación conductor = suma de sus partes, redondeada a la baja al céntimo  → nunca supera el coste real del viaje
+   S (plazas del coche) = plazas para pasajeros ofrecidas (cap / p_cap) + 1 conductor. Sin campo nuevo.
+   Parte por plaza      = coste del tramo ÷ S  (conductor incluido; da igual cuántas plazas estén ocupadas)
+   Un pasajero que reserva 2 plazas paga 2 partes. Las plazas vacías no se facturan (sin complemento al conductor).
+   Recuperación conductor = suma de las partes de quienes reservan, redondeada a la baja al céntimo
+                          → nunca supera el coste real; a coche lleno como máximo (S−1)/S del coste
    Tarifa de servicio   = fee × precio sin ajuste (15 % del subtotal: recuperación ÷ (1 − fee) − recuperación)
    Ajuste mínimo        = hasta minFare × plazas; se guarda APARTE: no va al conductor (destino: decisión abierta)
    Precio pasajero      = recuperación + tarifa + ajuste mínimo (todo incluido)                               */
@@ -15,13 +18,15 @@
   }
 
   /* legsKm: [km de cada tramo]; pax: [{up, down, seats}] (sube en parada up, baja en down; tramo i = parada i → i+1) */
-  function calcTrip(legsKm, pax, params, car) {
+  function calcTrip(legsKm, pax, params, car, seatsOffered) {
     var cpk = cpkOf(params, car), fee = params.fee, minFare = params.minFare || 0;
+    var S = seatsOffered | 0;
+    if (S < 2) throw new Error("plazas del coche inválidas: " + seatsOffered);
     var legs = legsKm.map(function (km, i) {
       var onboard = 0;
       pax.forEach(function (p) { if (p.up <= i && p.down > i) onboard += (p.seats || 1); });
       var cost = km * cpk, occ = onboard + 1;
-      return { km: km, onboard: onboard, occ: occ, cost: cost, share: cost / occ };
+      return { km: km, onboard: onboard, occ: occ, seats: S, cost: cost, share: cost / S };
     });
     var res = pax.map(function (p) {
       var seats = p.seats || 1, base = 0, km = 0;
@@ -49,9 +54,9 @@
   }
 
   /* Caso de un solo tramo (calculadora de ahorro): n pasajeros de origen a destino + conductor */
-  function simple(km, n, params, car) {
+  function simple(km, n, params, car, seatsOffered) {
     var pax = []; for (var i = 0; i < n; i++) pax.push({ up: 0, down: 1, seats: 1 });
-    return calcTrip([km], pax, params, car);
+    return calcTrip([km], pax, params, car, seatsOffered == null ? 4 : seatsOffered);
   }
 
   /* Presupuesto fijado al confirmar: copia inmutable; los selectores posteriores no lo cambian */

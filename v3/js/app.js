@@ -479,7 +479,8 @@
     var pax = m.pax.map(function (p) { return { name: p.name, up: p.up, down: p.down, seats: 1 }; });
     pax.push({ name: t("b_you"), up: m.up, down: m.down, seats: S.seats, me: true });
     m.allPax = pax;
-    m.calc = F.calcTrip(m.r.legs, pax, P, m.car);
+    m.S = (m.trip.cap || 3) + 1;
+    m.calc = F.calcTrip(m.r.legs, pax, P, m.car, m.S);
     m.me = m.calc.pax[m.calc.pax.length - 1];
     var dep = toMin(m.trip.time), off = timeOffsets(m);
     m.pickMin = Math.round(dep + off.pick); m.arrMin = Math.round(dep + off.arr);  // mismos minutos que se muestran
@@ -637,7 +638,7 @@
     h += '<div class="scroll"><table><thead><tr><th>' + esc(t("b_leg")) + '</th><th class="r">' + esc(t("b_km")) + '</th><th class="r">' + esc(t("b_cost")) + '</th><th class="r">' + esc(t("b_people")) + '</th><th class="r">' + esc(t("b_share")) + "</th></tr></thead><tbody>";
     for (var i = m.up; i < m.down; i++) {
       var lg = c.legs[i];
-      h += "<tr><td>" + esc(t("leg_line", { a: shortLabel(m.route[i].label), b: shortLabel(m.route[i + 1].label) })) + '</td><td class="r">' + km1(lg.km) + '</td><td class="r">' + eur(lg.cost) + '</td><td class="r">' + lg.occ + '</td><td class="r">' + eur(lg.share * me.seats) + "</td></tr>";
+      h += "<tr><td>" + esc(t("leg_line", { a: shortLabel(m.route[i].label), b: shortLabel(m.route[i + 1].label) })) + '</td><td class="r">' + km1(lg.km) + '</td><td class="r">' + eur(lg.cost) + '</td><td class="r">' + (lg.seats || m.S) + '</td><td class="r">' + eur(lg.share * me.seats) + "</td></tr>";
     }
     h += '<tr><td colspan="4">' + esc(t("b_sum")) + (me.seats > 1 ? " (" + esc(seatsTxt(me.seats)) + ")" : "") + '</td><td class="r">' + eur(me.recovery) + "</td></tr>";
     h += '<tr><td colspan="4">' + esc(t("b_fee", { pct: pct(P.fee) })) + '</td><td class="r">' + eur(me.fee) + "</td></tr>";
@@ -806,7 +807,8 @@
     if (fit) fitTo(pMap, PB.r.line);
     $("p-routing").textContent = PB.r.mode === "osrm" ? t("st_osrm") : t("st_fallback");
     var pax = PB.pax.map(function (p) { return { name: p.name, up: p.up, down: p.down, seats: 1 }; });
-    var c = F.calcTrip(PB.r.legs, pax, P, pp.car), over = null, minFree = Infinity;
+    var S = (pp.cap || 3) + 1;
+    var c = F.calcTrip(PB.r.legs, pax, P, pp.car, S), over = null, minFree = Infinity;
     PB.calc = c;
     legsBox.innerHTML = c.legs.map(function (lg, i) {
       var seats = '<span class="seat dr" title="' + esc(t("seat_driver")) + '"></span>';
@@ -869,7 +871,7 @@
     if (variant.hero === "savings") {
       var r = DATA.routes.filter(function (x) { return x.from === "alzira" && x.to === "upv"; })[0];
       var km = r ? r.km : Math.round(hav(placePt("alzira"), placePt("upv")) * CFG.STRAIGHT_LINE_FACTOR * 10) / 10;
-      el.textContent = t("hero_lead_savings", { km: km1(km), price: eur(F.simple(km, 1, P, "petrol").pax[0].price) });
+      el.textContent = t("hero_lead_savings", { km: km1(km), price: eur(F.simple(km, 1, P, "petrol", 4).pax[0].price) });
     } else el.textContent = t("hero_lead_community");
   }
   function optNum(id) { var v = parseFloat(String($(id).value).replace(",", ".")); return isFinite(v) && v >= 0 && $(id).value !== "" ? v : null; }
@@ -889,7 +891,7 @@
   function flenBasis() {
     var m = S.res[S.sel >= 0 ? S.sel : 0], wait = optNum("h-flenwait");
     if (m) return { price: m.me.price, m: m, min: SV.flenDoorToDoor({ walkUpKm: m.puAt != null ? m.walkUp : 0, walkDownKm: m.doAt != null ? m.walkDown : 0, waitMin: wait, rideMin: m.arrMin - m.pickMin }) };
-    return { price: F.simple(HC.km, 1, P, "petrol").pax[0].price, m: null, min: null };
+    return { price: F.simple(HC.km, 1, P, "petrol", 4).pax[0].price, m: null, min: null };
   }
   function renderSavings() {
     if (!HC) { $("h-out").innerHTML = ""; $("h-tiles").innerHTML = ""; $("h-head").innerHTML = ""; return; }

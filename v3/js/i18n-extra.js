@@ -289,3 +289,33 @@
     book_note: "Shared fuel cost, not a fare."
   });
 })();
+
+/* Precio por plaza (S = plazas de pasajeros + conductor). */
+(function () {
+  Object.assign(window.FF_I18N.es, {
+    how3_d: "El coste de cada tramo se divide entre todas las plazas del coche, conductor incluido. Quien reserva paga su plaza, aunque otras vayan vacías.",
+    faq2_a: "Cada tramo cuesta km × coste de energía por km del coche. Ese coste se divide entre el número de plazas del coche, conductor incluido. Pagas tu plaza; las vacías no se facturan a nadie. Lo ves en «Cómo calculamos el precio».",
+    faq3_a: "No. Quien conduce solo recupera lo que paguen quienes reserven (su parte del coste de energía), nunca más que el coste del viaje, y nada por las plazas vacías: no es un ingreso. La cancelación es gratuita; si cancela el último pasajero, quien conduce no recibe nada por esa plaza.",
+    hero_lead_savings: "¿Sin coche? Viaja con quien ya hace tu camino. Ejemplo: Alzira → UPV ({km} km): {price} por plaza en un coche de gasolina de 4 plazas (conductor incluido).",
+    sv_flen_est: "Flenflena: {x} (estimación sin conductor concreto: coche de gasolina de 4 plazas, conductor incluido).",
+    sv_flen: "Flenflena: {x} por plaza (estimación con coche de gasolina de 4 plazas, conductor incluido).",
+    b_people: "Plazas del coche",
+    p_payout: "Recibes {x} en la app poco después del viaje (solo lo pagado por quienes reserven; nada por plazas vacías), nunca más que el coste real.",
+    p_never: "Lo que recuperas nunca supera el coste del viaje, y nada por las plazas vacías ni si el último pasajero cancela. La tarifa de servicio y el ajuste mínimo no son para ti.",
+    cancel_p: "En el servicio real, podrías cancelar sin coste. Si fueras el único pasajero, quien conduce no recibiría nada por esa plaza. Esto es una demostración: no hay reservas, pagos ni cancelaciones reales.",
+    rv_cancel: "En el servicio real, la cancelación sería gratuita. Si fueras el único pasajero, quien conduce no recibiría nada por esa plaza. Aquí no se ha hecho ninguna reserva ni ningún pago."
+  });
+  Object.assign(window.FF_I18N.en, {
+    how3_d: "Each leg's cost is split among all seats in the car, driver included. You pay for your seat even if other seats are empty.",
+    faq2_a: "Each leg costs km × the car's energy cost per km. That cost is split among the number of seats in the car, driver included. You pay for your seat; empty seats are not billed to anyone. See “How we calculate the price”.",
+    faq3_a: "No. Drivers only recover what riders actually pay (their share of the energy cost), never more than the trip cost, and nothing for empty seats: it is not income. Cancellation is free; if the last rider cancels, the driver receives nothing for that seat.",
+    hero_lead_savings: "No car? Ride with someone already going your way. Example: Alzira → UPV ({km} km): {price} per seat in a 4-seat petrol car (driver included).",
+    sv_flen_est: "Flenflena: {x} (estimate without a specific driver: 4-seat petrol car, driver included).",
+    sv_flen: "Flenflena: {x} per seat (estimate: 4-seat petrol car, driver included).",
+    b_people: "Car seats",
+    p_payout: "You receive {x} in the app shortly after the trip (only what riders paid; nothing for empty seats), never more than the real cost.",
+    p_never: "What you recover never exceeds the trip cost, and nothing for empty seats or if the last rider cancels. The service fee and minimum adjustment are not for you.",
+    cancel_p: "In the real service you could cancel at no cost. If you were the only rider, the driver would receive nothing for that seat. This is a demo: there are no real bookings, payments or cancellations.",
+    rv_cancel: "In the real service, cancellation would be free. If you were the only rider, the driver would receive nothing for that seat. No booking or payment has been made here."
+  });
+})();
