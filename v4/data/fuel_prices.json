@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-10",
+  "week": "2026-11-10",
+  "petrol_eur_l": 1.6644,
+  "diesel_eur_l": 1.8262,
+  "ev_eur_kwh": 0.3166,
+  "ev_note": "assumption: home charging; not an official weekly series",
+  "source": "MITECO · Geoportal Gasolineras (provincia de Valencia)",
+  "source_url": "https://geoportalgasolineras.es/",
+  "api_url": "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/FiltroProvincia/46",
+  "province": "46",
+  "fetched_at": "2026-11-10T09:47:24Z",
+  "n_stations": {
+    "petrol": 621,
+    "diesel": 634,
+    "total": 650
+  }
+}

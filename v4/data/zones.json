@@ -1,0 +1,471 @@
+{
+ "_note": "Zonas aproximadas (centroides). Solo se registra el nombre de la zona, nunca coordenadas. v4: Sueca, Cullera, Lorigüilla, La Pobla Llarga, Sollana y Gilet usan como centroide su estación de Cercanías.",
+ "campuses": [
+  {
+   "id": "campus_vera",
+   "bbox": [
+    -0.3502,
+    39.4768,
+    -0.3331,
+    39.4849
+   ],
+   "c": [
+    39.48085,
+    -0.34203
+   ]
+  },
+  {
+   "id": "campus_tarongers",
+   "bbox": [
+    -0.351,
+    39.4744,
+    -0.3387,
+    39.481
+   ],
+   "c": [
+    39.47775,
+    -0.34262
+   ]
+  },
+  {
+   "id": "campus_blasco",
+   "bbox": [
+    -0.3648,
+    39.4763,
+    -0.3572,
+    39.4812
+   ],
+   "c": [
+    39.47957,
+    -0.36334
+   ]
+  },
+  {
+   "id": "campus_burjassot",
+   "bbox": [
+    -0.4265,
+    39.506,
+    -0.4172,
+    39.5175
+   ],
+   "c": [
+    39.5074,
+    -0.41984
+   ]
+  },
+  {
+   "id": "campus_ceu_alfara",
+   "bbox": [
+    -0.3935,
+    39.546,
+    -0.383,
+    39.553
+   ],
+   "c": [
+    39.55074,
+    -0.38836
+   ]
+  },
+  {
+   "id": "campus_ceu_colomina",
+   "bbox": [
+    -0.3752,
+    39.4761,
+    -0.3735,
+    39.4772
+   ],
+   "c": [
+    39.47666,
+    -0.37431
+   ]
+  }
+ ],
+ "areas": [
+  {
+   "id": "vlc_ciutat_vella",
+   "c": [
+    39.4745,
+    -0.3768
+   ]
+  },
+  {
+   "id": "vlc_eixample",
+   "c": [
+    39.464,
+    -0.3715
+   ]
+  },
+  {
+   "id": "vlc_extramurs",
+   "c": [
+    39.469,
+    -0.388
+   ]
+  },
+  {
+   "id": "vlc_campanar",
+   "c": [
+    39.484,
+    -0.396
+   ]
+  },
+  {
+   "id": "vlc_la_saidia",
+   "c": [
+    39.487,
+    -0.373
+   ]
+  },
+  {
+   "id": "vlc_pla_del_real",
+   "c": [
+    39.479,
+    -0.357
+   ]
+  },
+  {
+   "id": "vlc_olivereta",
+   "c": [
+    39.47,
+    -0.404
+   ]
+  },
+  {
+   "id": "vlc_patraix",
+   "c": [
+    39.459,
+    -0.395
+   ]
+  },
+  {
+   "id": "vlc_jesus",
+   "c": [
+    39.453,
+    -0.384
+   ]
+  },
+  {
+   "id": "vlc_quatre_carreres",
+   "c": [
+    39.45,
+    -0.365
+   ]
+  },
+  {
+   "id": "vlc_poblats_maritims",
+   "c": [
+    39.464,
+    -0.33
+   ]
+  },
+  {
+   "id": "vlc_camins_al_grau",
+   "c": [
+    39.464,
+    -0.352
+   ]
+  },
+  {
+   "id": "vlc_algiros",
+   "c": [
+    39.474,
+    -0.348
+   ]
+  },
+  {
+   "id": "vlc_benimaclet",
+   "c": [
+    39.487,
+    -0.359
+   ]
+  },
+  {
+   "id": "vlc_rascanya",
+   "c": [
+    39.498,
+    -0.372
+   ]
+  },
+  {
+   "id": "vlc_benicalap",
+   "c": [
+    39.496,
+    -0.395
+   ]
+  },
+  {
+   "id": "vlc_pobles_nord",
+   "c": [
+    39.525,
+    -0.37
+   ]
+  },
+  {
+   "id": "vlc_pobles_sud",
+   "c": [
+    39.4,
+    -0.35
+   ]
+  },
+  {
+   "id": "mun_burjassot",
+   "c": [
+    39.509,
+    -0.413
+   ]
+  },
+  {
+   "id": "mun_paterna",
+   "c": [
+    39.503,
+    -0.441
+   ]
+  },
+  {
+   "id": "mun_mislata",
+   "c": [
+    39.475,
+    -0.418
+   ]
+  },
+  {
+   "id": "mun_xirivella",
+   "c": [
+    39.465,
+    -0.428
+   ]
+  },
+  {
+   "id": "mun_quart_de_poblet",
+   "c": [
+    39.481,
+    -0.44
+   ]
+  },
+  {
+   "id": "mun_manises",
+   "c": [
+    39.493,
+    -0.463
+   ]
+  },
+  {
+   "id": "mun_torrent",
+   "c": [
+    39.437,
+    -0.465
+   ]
+  },
+  {
+   "id": "mun_alboraia",
+   "c": [
+    39.5,
+    -0.35
+   ]
+  },
+  {
+   "id": "mun_tavernes_blanques",
+   "c": [
+    39.507,
+    -0.363
+   ]
+  },
+  {
+   "id": "mun_godella",
+   "c": [
+    39.52,
+    -0.411
+   ]
+  },
+  {
+   "id": "mun_moncada",
+   "c": [
+    39.545,
+    -0.395
+   ]
+  },
+  {
+   "id": "mun_alfafar",
+   "c": [
+    39.422,
+    -0.39
+   ]
+  },
+  {
+   "id": "mun_catarroja",
+   "c": [
+    39.403,
+    -0.403
+   ]
+  },
+  {
+   "id": "mun_benetusser",
+   "c": [
+    39.423,
+    -0.398
+   ]
+  },
+  {
+   "id": "mun_el_puig",
+   "c": [
+    39.589,
+    -0.303
+   ]
+  },
+  {
+   "id": "mun_pucol",
+   "c": [
+    39.617,
+    -0.303
+   ]
+  },
+  {
+   "id": "mun_sagunt",
+   "c": [
+    39.679,
+    -0.278
+   ]
+  },
+  {
+   "id": "mun_massamagrell",
+   "c": [
+    39.57,
+    -0.33
+   ]
+  },
+  {
+   "id": "mun_meliana",
+   "c": [
+    39.528,
+    -0.349
+   ]
+  },
+  {
+   "id": "mun_alfara",
+   "c": [
+    39.543,
+    -0.384
+   ]
+  },
+  {
+   "id": "mun_betera",
+   "c": [
+    39.592,
+    -0.462
+   ]
+  },
+  {
+   "id": "mun_riba_roja",
+   "c": [
+    39.547,
+    -0.565
+   ]
+  },
+  {
+   "id": "mun_eliana",
+   "c": [
+    39.566,
+    -0.528
+   ]
+  },
+  {
+   "id": "mun_alaquas",
+   "c": [
+    39.457,
+    -0.461
+   ]
+  },
+  {
+   "id": "mun_silla",
+   "c": [
+    39.362,
+    -0.411
+   ]
+  },
+  {
+   "id": "mun_picassent",
+   "c": [
+    39.363,
+    -0.46
+   ]
+  },
+  {
+   "id": "mun_almussafes",
+   "c": [
+    39.2924,
+    -0.4139
+   ]
+  },
+  {
+   "id": "mun_benifaio",
+   "c": [
+    39.2854,
+    -0.4263
+   ]
+  },
+  {
+   "id": "mun_algemesi",
+   "c": [
+    39.1908,
+    -0.4357
+   ]
+  },
+  {
+   "id": "mun_alzira",
+   "c": [
+    39.1512,
+    -0.4347
+   ]
+  },
+  {
+   "id": "mun_carcaixent",
+   "c": [
+    39.121,
+    -0.4473
+   ]
+  },
+  {
+   "id": "mun_sueca",
+   "c": [
+    39.20585,
+    -0.30824
+   ]
+  },
+  {
+   "id": "mun_cullera",
+   "c": [
+    39.17789,
+    -0.26324
+   ]
+  },
+  {
+   "id": "mun_loriguilla",
+   "c": [
+    39.48578,
+    -0.5674
+   ]
+  },
+  {
+   "id": "mun_pobla_llarga",
+   "c": [
+    39.08334,
+    -0.46966
+   ]
+  },
+  {
+   "id": "mun_sollana",
+   "c": [
+    39.27935,
+    -0.37931
+   ]
+  },
+  {
+   "id": "mun_gilet",
+   "c": [
+    39.6794,
+    -0.32065
+   ]
+  }
+ ],
+ "maxAreaKm": 6
+}

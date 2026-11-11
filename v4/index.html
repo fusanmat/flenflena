@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flenflena · coche compartido universitario en València</title>
+<link rel="icon" href="assets/flenflena_logo_v7.png" type="image/png">
+<meta name="description" content="Comparte coche con la comunidad universitaria de la UPV, la UV y el CEU-UCH y paga solo tu parte del trayecto.">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="top">
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#inicio" aria-label="Flenflena">
+        <img src="assets/flenflena_logo_v7_wordmark.png" alt="Flenflena" class="wm" width="62" height="62">
+      </a>
+      <div class="acct">
+        <span id="acct-off"><button class="btn ghost sm" id="btn-login" type="button" data-i18n="login"></button> <button class="btn sm" id="btn-signup" type="button" data-i18n="signup"></button></span>
+        <span id="acct-on" hidden><span class="chip g" data-i18n="session_demo"></span> <button class="btn ghost sm" id="btn-logout" type="button" data-i18n="logout"></button></span>
+      </div>
+      <button class="lang" id="langBtn" type="button"></button>
+      <nav aria-label="Secciones">
+        <a href="#inicio" data-v="inicio"><span class="long" data-i18n="nav_home"></span><span class="short" data-i18n="nav_home_s"></span></a>
+        <a href="#buscar" data-v="buscar"><span class="long" data-i18n="nav_search"></span><span class="short" data-i18n="nav_search_s"></span></a>
+        <a href="#publicar" data-v="publicar"><span class="long" data-i18n="nav_publish"></span><span class="short" data-i18n="nav_publish_s"></span></a>
+      </nav>
+    </div>
+  </header>
+  <div class="demobar"><div class="wrap" data-i18n="demo_label"></div></div>
+</div>
+
+<main>
+<!-- ============ INICIO (visitantes) ============ -->
+<section class="view" id="v-inicio">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="eyebrow" data-i18n="eyebrow"></span>
+        <h1 data-i18n-html="hero_title"></h1>
+        <p class="tagline" data-i18n-html="tagline"></p>
+        <p class="lead" id="heroLead"></p>
+        <div class="trustbox"><b data-i18n="trust_t"></b><br><span data-i18n="trust"></span></div>
+        <div class="unis"><span class="chip">UPV</span><span class="chip g">UV</span><span class="chip">CEU-UCH</span></div>
+        <p class="small muted focus-line" data-i18n="focus_line"></p>
+        <p class="presets"><button class="btn ghost sm" type="button" id="h-preset-late" data-i18n="preset_late"></button> <button class="btn ghost sm" type="button" id="h-preset-station" data-i18n="preset_station"></button></p>
+        <div class="hmapwrap">
+          <div id="h-map" class="mapbox hmap" role="region" data-i18n-aria="hm_aria"></div>
+          <div class="hm-legend small"><span><i class="sw sel"></i><span data-i18n="hm_sel"></span></span> <span><i class="sw demo"></i><span data-i18n="hm_demo"></span></span></div>
+          <div class="tiny muted" id="h-map-note" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="card pad" id="calc">
+        <h3 data-i18n="sv_title"></h3>
+        <p class="small muted" style="margin:-4px 0 10px" data-i18n="sv_sub"></p>
+        <div class="row">
+          <div class="field addr"><label for="h-from" data-i18n="pick_me"></label>
+            <input type="text" id="h-from" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
+            <select id="h-from-q" aria-label="Lugares frecuentes"></select></div>
+          <div class="field addr"><label for="h-to" data-i18n="go_to"></label>
+            <input type="text" id="h-to" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
+            <select id="h-to-q" aria-label="Lugares frecuentes"></select></div>
+        </div>
+        <details class="opt"><summary data-i18n="sv_opt"></summary>
+          <div class="row3">
+            <div class="field"><label for="h-vtc" data-i18n="sv_vtc_in"></label><input type="number" id="h-vtc" min="0" max="200" step="0.5" inputmode="decimal"></div>
+            <div class="field"><label for="h-vtccoef" data-i18n="sv_vtc_coef"></label><input type="number" id="h-vtccoef" min="0.2" max="5" step="0.05" inputmode="decimal"></div>
+            <div class="field"><label for="h-vtcwait" data-i18n="sv_vtc_wait"></label><input type="number" id="h-vtcwait" min="0" max="60" step="1" inputmode="numeric"></div>
+            <div class="field"><label for="h-taxiwait" data-i18n="sv_taxi_wait"></label><input type="number" id="h-taxiwait" min="0" max="60" step="1" inputmode="numeric"></div>
+            <div class="field"><label for="h-flenwait" data-i18n="sv_flen_wait"></label><input type="number" id="h-flenwait" min="0" max="60" step="1" inputmode="numeric"></div>
+            <div class="field"><label for="h-emtmin" data-i18n="sv_emt_min"></label><input type="number" id="h-emtmin" min="1" max="240" step="1" inputmode="numeric"></div>
+            <div class="field"><label for="h-metromin" data-i18n="sv_metro_min"></label><input type="number" id="h-metromin" min="1" max="240" step="1" inputmode="numeric"></div>
+          </div>
+        </details>
+        <button class="btn block" id="h-calc" type="button" data-i18n="sv_btn"></button>
+        <div class="status" id="h-status" aria-live="polite"></div>
+        <div class="headline" id="h-head" aria-live="polite"></div>
+        <div class="tiles" id="h-tiles" role="radiogroup"></div>
+        <div id="h-out"></div>
+      </div>
+    </div>
+
+    <h2 style="margin-top:36px" data-i18n="pv_title"></h2>
+    <p class="sub" data-i18n="pv_sub"></p>
+    <div class="lockwrap"><div class="preview" id="h-preview"></div>
+      <div class="overlay" id="h-overlay"><b data-i18n="ov_t"></b><span class="small" data-i18n="ov_d"></span><span><button class="btn sm" type="button" data-act="signup" data-i18n="signup"></button> <button class="btn ghost sm" type="button" data-act="login" data-i18n="login"></button></span></div></div>
+    <p style="margin-top:10px"><a class="btn g" href="#join" id="pv-join" data-i18n="pv_cta"></a> <a class="btn ghost" href="#buscar" data-i18n="pv_search"></a></p>
+
+    <h2 style="margin-top:40px" data-i18n="how_title"></h2>
+    <div class="steps">
+      <div class="card pad step"><div class="k">1</div><h3 data-i18n="how1_t"></h3><p class="small muted" style="margin:0" data-i18n="how1_d"></p></div>
+      <div class="card pad step"><div class="k">2</div><h3 data-i18n="how2_t"></h3><p class="small muted" style="margin:0" data-i18n="how2_d"></p></div>
+      <div class="card pad step"><div class="k">3</div><h3 data-i18n="how3_t"></h3><p class="small muted" style="margin:0" data-i18n="how3_d"></p></div>
+    </div>
+    <div class="two">
+      <div>
+      <div class="card pad" id="join">
+        <span class="eyebrow g" data-i18n="join_eyebrow"></span>
+        <h2 data-i18n="join_title"></h2>
+        <p class="small muted" data-i18n="join_sub"></p>
+        <form id="joinForm" novalidate autocomplete="off">
+          <div class="row">
+            <div class="field"><label for="f-name" data-i18n="f_name"></label><input type="text" id="f-name" maxlength="80"><div class="err" id="e-name"></div></div>
+            <div class="field"><label for="f-email" data-i18n="f_email_inst"></label><input type="email" id="f-email" maxlength="120"><div class="err" id="e-email"></div></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="f-role" data-i18n="f_role"></label>
+              <select id="f-role"><option value="" data-i18n="role_none"></option><option value="student" data-i18n="role_student"></option><option value="lecturer" data-i18n="role_teacher"></option><option value="staff" data-i18n="role_staff"></option><option value="na" data-i18n="role_na"></option></select></div>
+            <div class="field"><label for="f-uni" data-i18n="f_uni"></label>
+              <select id="f-uni"><option value="" data-i18n="uni_auto"></option><option value="upv">UPV</option><option value="uv">UV</option><option value="ceu">CEU-UCH</option></select></div>
+          </div>
+          <label class="check"><input type="checkbox" id="f-adult"> <span data-i18n="f_adult"></span></label>
+          <div class="err" id="e-adult"></div>
+
+          <p class="tiny muted" id="allow-list"></p>
+          <p class="tiny policy" data-i18n="vf_demo"></p>
+          <p class="tiny muted" data-i18n="join_privacy"></p>
+          <button class="btn g" type="submit" data-i18n="submit"></button>
+        </form>
+</div>
+        <div class="card pad" id="encuesta" style="margin-top:16px">
+        <form id="surveyForm" novalidate autocomplete="off">
+          <fieldset>
+            <legend data-i18n="survey_title"></legend>
+            <div class="row">
+              <div class="field"><label for="q-mode" data-i18n="q_mode"></label>
+                <select id="q-mode"><option value="" data-i18n="any"></option><option value="car_alone" data-i18n="mode_car_alone"></option><option value="car_shared" data-i18n="mode_car_shared"></option><option value="metro" data-i18n="mode_metro"></option><option value="bus" data-i18n="mode_bus"></option><option value="bike" data-i18n="mode_bike"></option><option value="walk" data-i18n="mode_walk"></option><option value="other" data-i18n="mode_other"></option></select></div>
+              <div class="field"><label for="q-days" data-i18n="q_days"></label>
+                <select id="q-days"><option value="" data-i18n="any"></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div>
+            </div>
+            <div class="field"><label for="q-spend" data-i18n="q_spend"></label>
+              <select id="q-spend"><option value="" data-i18n="any"></option><option value="lt20" data-i18n="spend_lt20"></option><option value="20_40" data-i18n="spend_20_40"></option><option value="40_70" data-i18n="spend_40_70"></option><option value="70_100" data-i18n="spend_70_100"></option><option value="gt100" data-i18n="spend_gt100"></option><option value="dk" data-i18n="spend_dk"></option></select></div>
+            <div class="row">
+              <div class="field"><label for="q-cheap" data-i18n="q_cheap"></label>
+                <select id="q-cheap" class="pricesel"></select></div>
+              <div class="field"><label for="q-exp" data-i18n="q_expensive"></label>
+                <select id="q-exp" class="pricesel"></select></div>
+            </div>
+            <div class="field"><label for="q-pay" data-i18n="q_pay"></label>
+              <select id="q-pay"><option value="" data-i18n="any"></option><option value="trip" data-i18n="pay_trip"></option><option value="pass" data-i18n="pay_pass"></option><option value="any" data-i18n="pay_any"></option></select></div>
+          </fieldset>
+          <p class="tiny muted" data-i18n="survey_note"></p>
+          <button class="btn ghost" type="submit" data-i18n="survey_submit"></button>
+          <div class="ok" id="s-thanks" hidden data-i18n="survey_thanks"></div>
+        </form>
+        </div>
+      </div>
+      <div>
+        <div class="card pad privacy" id="privacidad">
+          <h3 data-i18n="privacy_title"></h3>
+          <ul><li data-i18n="p1"></li><li data-i18n="p2"></li><li data-i18n="p3"></li><li data-i18n="p4"></li><li data-i18n="p5"></li></ul>
+        </div>
+        <div class="card pad faq" style="margin-top:16px">
+          <h3 data-i18n="faq_title"></h3>
+          <details><summary data-i18n="faq1_q"></summary><p data-i18n="faq1_a"></p></details>
+          <details><summary data-i18n="faq2_q"></summary><p data-i18n="faq2_a"></p></details>
+          <details><summary data-i18n="faq3_q"></summary><p data-i18n="faq3_a"></p></details>
+          <details><summary data-i18n="faq4_q"></summary><p data-i18n="faq4_a"></p></details>
+          <details><summary data-i18n="faq5_q"></summary><p data-i18n="faq5_a"></p></details>
+          <details><summary data-i18n="faq6_q"></summary><p data-i18n="faq6_a"></p></details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSCAR ============ -->
+<section class="view" id="v-buscar">
+  <div class="wrap">
+    <div class="trybanner" id="s-try" role="status" hidden><b data-i18n="try_banner"></b> <span class="small" data-i18n="try_banner_sub"></span></div>
+    <div class="s-intro">
+    <span class="eyebrow g" data-i18n="rider"></span>
+    <h2 data-i18n="s_title"></h2>
+    <p class="sub" data-i18n="s_sub"></p>
+    <p class="small muted focus-line" data-i18n="focus_line"></p>
+    </div>
+    <p class="presets"><button class="btn ghost sm" type="button" id="s-preset-late" data-i18n="preset_late"></button> <button class="btn ghost sm" type="button" id="s-preset-station" data-i18n="preset_station"></button></p>
+    <div class="card pad" id="s-card">
+      <div class="s-compact"><span class="small" id="s-compact-txt"></span> <button class="btn ghost sm" type="button" id="s-edit" data-i18n="s_edit"></button></div>
+      <div class="searchbar">
+        <div class="field addr" data-addr="s-from"><label for="s-from" data-i18n="pick_me"></label>
+          <input type="text" id="s-from" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
+          <select id="s-from-q" aria-label="Lugares frecuentes"></select></div>
+        <div class="field addr" data-addr="s-to"><label for="s-to" data-i18n="go_to"></label>
+          <input type="text" id="s-to" data-i18n-ph="ph_place" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false">
+          <select id="s-to-q" aria-label="Lugares frecuentes"></select></div>
+      </div>
+      <div class="searchbar2">
+        <div class="field"><label for="s-date" data-i18n="date"></label><input type="date" id="s-date"></div>
+        <div class="field"><label for="s-mode" data-i18n="time_mode"></label><select id="s-mode"><option value="arrive" data-i18n="mode_arrive"></option><option value="depart" data-i18n="mode_depart"></option></select></div>
+        <div class="field"><label for="s-time" data-i18n="time"></label><input type="time" id="s-time" value="08:00" step="300"></div>
+        <div class="field"><label for="s-seats" data-i18n="seats"></label><select id="s-seats"><option>1</option><option>2</option><option>3</option></select></div>
+        <button class="btn" id="s-go" type="button" data-i18n="search"></button>
+      </div>
+      <p class="tiny muted" id="s-modenote" style="margin:4px 0 0"></p>
+      <div class="repeat">
+        <label class="check"><input type="checkbox" id="s-repeat"> <span data-i18n="repeat"></span></label>
+        <div id="s-repeat-box" hidden>
+          <div class="row">
+            <div class="field"><label for="s-rfrom" data-i18n="r_from"></label><input type="date" id="s-rfrom"></div>
+            <div class="field"><label for="s-rto" data-i18n="r_to"></label><input type="date" id="s-rto"></div>
+          </div>
+          <div class="days" id="s-days"></div>
+          <p class="tiny muted" id="s-rsum"></p>
+        </div>
+      </div>
+      <div class="filters"><button type="button" class="chipbtn" id="s-women" aria-pressed="false" data-i18n="f_women"></button> <span class="tiny muted" data-i18n="f_women_note"></span></div>
+      <div class="clickset"><span data-i18n="click_sets"></span>
+        <label><input type="radio" name="s-click" value="from" checked> <span data-i18n="pickup"></span></label>
+        <label><input type="radio" name="s-click" value="to"> <span data-i18n="destination"></span></label>
+      </div>
+      <div class="status" id="s-status" aria-live="polite"></div>
+    </div>
+
+    <div class="grid2 buscar" style="margin-top:20px">
+      <div class="col-results">
+        <div id="s-summary" class="small muted"></div>
+        <div class="card pad lockbar" id="s-lockbar"><b data-i18n="ov_t"></b> <span class="small" data-i18n="ov_d"></span> <button class="btn sm" type="button" data-act="signup" data-i18n="signup"></button> <button class="btn ghost sm" type="button" data-act="login" data-i18n="login"></button></div>
+        <div class="results" id="results"></div>
+        <div class="saveroute" id="s-save" hidden><button class="btn ghost sm" type="button" id="s-save-btn" data-i18n="save_route"></button> <span class="tiny muted" id="s-save-ok" hidden data-i18n="save_route_ok"></span></div>
+      </div>
+      <div class="sticky">
+        <div class="card pad" id="s-mapcard">
+          <h3 id="map-title" data-i18n="map_title"></h3>
+          <div id="s-map" class="mapbox"></div>
+          <div class="legend">
+            <span><i class="dot" style="background:var(--ink)"></i><span data-i18n="lg_driver"></span></span>
+            <span><i class="dot" style="background:var(--green)"></i><span data-i18n="lg_pickups"></span></span>
+            <span><i class="dot" style="background:var(--orange)"></i><span data-i18n="lg_you"></span></span>
+            <span><i class="dot" style="background:var(--blue)"></i><span data-i18n="lg_dest"></span></span>
+          </div>
+          <div class="tiny muted" id="s-routing" style="margin-top:6px"></div>
+        </div>
+        <div class="card pad" id="s-break" style="margin-top:16px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICAR ============ -->
+<section class="view" id="v-publicar">
+  <div class="wrap">
+    <span class="eyebrow" data-i18n="driver"></span>
+    <h2 data-i18n="p_title"></h2>
+    <p class="sub" data-i18n="p_sub"></p>
+
+    <div class="grid2 publicar">
+      <div class="col-left">
+        <div class="card pad" id="p-card1">
+          <h3 data-i18n="p_step1"></h3>
+          <div class="stoplist" id="p-stops"></div>
+          <button class="btn ghost sm" id="p-addstop" type="button" style="margin-top:10px" data-i18n="p_addstop"></button>
+          <div class="clickset"><label for="p-click" data-i18n="click_sets"></label><select id="p-click"></select></div>
+          <div class="row" style="margin-top:16px">
+            <div class="field"><label for="p-time" data-i18n="depart_at"></label><input type="time" id="p-time" value="07:45" step="300"></div>
+            <div class="field"><label for="p-cap" data-i18n="p_cap"></label><select id="p-cap"><option>1</option><option>2</option><option selected>3</option><option>4</option></select></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="p-date" data-i18n="date"></label><input type="date" id="p-date"></div>
+            <div class="field"><label for="p-car" data-i18n="drivetrain"></label><select id="p-car" class="carsel"></select></div>
+          </div>
+          <label class="check weekly"><input type="checkbox" id="p-weekly"> <span data-i18n="p_weekly"></span></label>
+          <div class="status" id="p-status" aria-live="polite"></div>
+        </div>
+
+        <div class="card pad" style="margin-top:16px" id="p-card2">
+          <h3 data-i18n="p_step2"></h3>
+          <p class="small muted" style="margin:-4px 0 12px" data-i18n="p_step2_sub"></p>
+          <div class="paxrow tiny muted" style="font-weight:700;text-transform:uppercase;margin-bottom:6px"><span data-i18n="p_name"></span><span data-i18n="p_up"></span><span data-i18n="p_down"></span><span></span></div>
+          <div class="stoplist" id="p-pax"></div>
+          <button class="btn ghost sm" id="p-addpax" type="button" style="margin-top:10px" data-i18n="p_addpax"></button>
+          <div id="p-warn"></div>
+        </div>
+
+        <div class="card pad" style="margin-top:16px" id="p-card3">
+          <h3 data-i18n="p_step3"></h3>
+          <div class="legs" id="p-legs"></div>
+        </div>
+      </div>
+
+      <div class="sticky">
+        <div class="card pad" id="p-mapcard">
+          <h3 data-i18n="p_map"></h3>
+          <div id="p-map" class="mapbox"></div>
+          <div class="tiny muted" id="p-routing" style="margin-top:6px"></div>
+        </div>
+        <div class="card pad" style="margin-top:16px" id="p-break"></div>
+        <button class="btn g block" id="p-publish" type="button" style="margin-top:16px" data-i18n="p_publish"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <img src="assets/flenflena_logo_v7.png" alt="Flenflena" class="foot-logo" width="40" height="32">
+  <p data-i18n="footer"></p>
+  <p data-i18n="footer_disclaimer"></p>
+  <p data-i18n="footer_credits"></p>
+</div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-h"><div class="card" id="modal-body"></div></div>
+
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="js/mapinput.js"></script>
+<script src="js/config.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/i18n-extra.js"></script>
+<script src="js/track.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/fare.js"></script>
+<script src="js/savings.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

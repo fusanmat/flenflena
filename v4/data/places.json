@@ -1,0 +1,543 @@
+{
+ "_note": "Lugares frecuentes (selección rápida). Coordenadas aproximadas; campus según OpenStreetMap/Photon. Estaciones de Cercanías (g = rail): coordenadas oficiales de Renfe (GTFS stops.txt, consultado 11-nov-2026).",
+ "places": [
+  {
+   "id": "upv",
+   "n": "UPV · Campus de Vera",
+   "g": "campus",
+   "lat": 39.48085,
+   "lng": -0.34203,
+   "uni": "upv"
+  },
+  {
+   "id": "uvt",
+   "n": "UV · Campus de Tarongers",
+   "g": "campus",
+   "lat": 39.47775,
+   "lng": -0.34262,
+   "uni": "uv"
+  },
+  {
+   "id": "uvb",
+   "n": "UV · Campus de Blasco Ibáñez",
+   "g": "campus",
+   "lat": 39.47957,
+   "lng": -0.36334,
+   "uni": "uv"
+  },
+  {
+   "id": "uvbp",
+   "n": "UV · Campus de Burjassot-Paterna",
+   "g": "campus",
+   "lat": 39.5074,
+   "lng": -0.41984,
+   "uni": "uv"
+  },
+  {
+   "id": "ceu",
+   "n": "CEU-UCH · Alfara del Patriarca",
+   "g": "campus",
+   "lat": 39.55074,
+   "lng": -0.38836,
+   "uni": "ceu"
+  },
+  {
+   "id": "ceuv",
+   "n": "CEU-UCH · Valencia (Palacio de Colomina)",
+   "g": "campus",
+   "lat": 39.47666,
+   "lng": -0.37431,
+   "uni": "ceu"
+  },
+  {
+   "id": "cent",
+   "n": "Centro (Plaza del Ayuntamiento)",
+   "g": "city",
+   "lat": 39.4697,
+   "lng": -0.3763
+  },
+  {
+   "id": "norte",
+   "n": "Estación del Norte",
+   "g": "city",
+   "lat": 39.4664,
+   "lng": -0.3772
+  },
+  {
+   "id": "ruz",
+   "n": "Russafa",
+   "g": "city",
+   "lat": 39.4612,
+   "lng": -0.3743
+  },
+  {
+   "id": "bmc",
+   "n": "Benimaclet",
+   "g": "city",
+   "lat": 39.487,
+   "lng": -0.359
+  },
+  {
+   "id": "camp",
+   "n": "Campanar",
+   "g": "city",
+   "lat": 39.4842,
+   "lng": -0.394
+  },
+  {
+   "id": "patr",
+   "n": "Patraix",
+   "g": "city",
+   "lat": 39.46,
+   "lng": -0.397
+  },
+  {
+   "id": "cab",
+   "n": "El Cabanyal",
+   "g": "city",
+   "lat": 39.469,
+   "lng": -0.329
+  },
+  {
+   "id": "mal",
+   "n": "Malilla",
+   "g": "city",
+   "lat": 39.45,
+   "lng": -0.377
+  },
+  {
+   "id": "orr",
+   "n": "Orriols",
+   "g": "city",
+   "lat": 39.495,
+   "lng": -0.377
+  },
+  {
+   "id": "cac",
+   "n": "Ciudad de las Artes y las Ciencias",
+   "g": "city",
+   "lat": 39.455,
+   "lng": -0.353
+  },
+  {
+   "id": "puig",
+   "n": "El Puig",
+   "g": "metro",
+   "lat": 39.589,
+   "lng": -0.303
+  },
+  {
+   "id": "pucol",
+   "n": "Puçol",
+   "g": "metro",
+   "lat": 39.617,
+   "lng": -0.303
+  },
+  {
+   "id": "sag",
+   "n": "Sagunto",
+   "g": "metro",
+   "lat": 39.679,
+   "lng": -0.278
+  },
+  {
+   "id": "mass",
+   "n": "Massamagrell",
+   "g": "metro",
+   "lat": 39.57,
+   "lng": -0.33
+  },
+  {
+   "id": "mel",
+   "n": "Meliana",
+   "g": "metro",
+   "lat": 39.528,
+   "lng": -0.349
+  },
+  {
+   "id": "albo",
+   "n": "Alboraia",
+   "g": "metro",
+   "lat": 39.5,
+   "lng": -0.35
+  },
+  {
+   "id": "monc",
+   "n": "Moncada",
+   "g": "metro",
+   "lat": 39.545,
+   "lng": -0.395
+  },
+  {
+   "id": "burj",
+   "n": "Burjassot",
+   "g": "metro",
+   "lat": 39.509,
+   "lng": -0.413
+  },
+  {
+   "id": "god",
+   "n": "Godella",
+   "g": "metro",
+   "lat": 39.52,
+   "lng": -0.411
+  },
+  {
+   "id": "pat",
+   "n": "Paterna",
+   "g": "metro",
+   "lat": 39.503,
+   "lng": -0.44
+  },
+  {
+   "id": "betera",
+   "n": "Bétera",
+   "g": "metro",
+   "lat": 39.592,
+   "lng": -0.462
+  },
+  {
+   "id": "manis",
+   "n": "Manises",
+   "g": "metro",
+   "lat": 39.493,
+   "lng": -0.463
+  },
+  {
+   "id": "quart",
+   "n": "Quart de Poblet",
+   "g": "metro",
+   "lat": 39.481,
+   "lng": -0.441
+  },
+  {
+   "id": "misl",
+   "n": "Mislata",
+   "g": "metro",
+   "lat": 39.475,
+   "lng": -0.418
+  },
+  {
+   "id": "xir",
+   "n": "Xirivella",
+   "g": "metro",
+   "lat": 39.465,
+   "lng": -0.428
+  },
+  {
+   "id": "alaq",
+   "n": "Alaquàs",
+   "g": "metro",
+   "lat": 39.457,
+   "lng": -0.461
+  },
+  {
+   "id": "torr",
+   "n": "Torrent",
+   "g": "metro",
+   "lat": 39.437,
+   "lng": -0.465
+  },
+  {
+   "id": "alfaf",
+   "n": "Alfafar",
+   "g": "metro",
+   "lat": 39.422,
+   "lng": -0.39
+  },
+  {
+   "id": "cata",
+   "n": "Catarroja",
+   "g": "metro",
+   "lat": 39.403,
+   "lng": -0.404
+  },
+  {
+   "id": "silla",
+   "n": "Silla",
+   "g": "metro",
+   "lat": 39.362,
+   "lng": -0.411
+  },
+  {
+   "id": "pica",
+   "n": "Picassent",
+   "g": "metro",
+   "lat": 39.363,
+   "lng": -0.46
+  },
+  {
+   "id": "ribar",
+   "n": "Riba-roja de Túria",
+   "g": "metro",
+   "lat": 39.547,
+   "lng": -0.565
+  },
+  {
+   "id": "eliana",
+   "n": "L'Eliana",
+   "g": "metro",
+   "lat": 39.566,
+   "lng": -0.528
+  },
+  {
+   "id": "almussafes",
+   "n": "Almussafes",
+   "g": "metro",
+   "lat": 39.2924,
+   "lng": -0.4139
+  },
+  {
+   "id": "benifaio",
+   "n": "Benifaió",
+   "g": "metro",
+   "lat": 39.2854,
+   "lng": -0.4263
+  },
+  {
+   "id": "algemesi",
+   "n": "Algemesí",
+   "g": "metro",
+   "lat": 39.1908,
+   "lng": -0.4357
+  },
+  {
+   "id": "alzira",
+   "n": "Alzira",
+   "g": "metro",
+   "lat": 39.1512,
+   "lng": -0.4347
+  },
+  {
+   "id": "carcaixent",
+   "n": "Carcaixent",
+   "g": "metro",
+   "lat": 39.121,
+   "lng": -0.4473
+  },
+  {
+   "id": "est_la_pobla_llarga",
+   "n": "Cercanías · La Pobla Llarga",
+   "g": "rail",
+   "lat": 39.08334,
+   "lng": -0.46966,
+   "st": "64102"
+  },
+  {
+   "id": "est_carcaixent",
+   "n": "Cercanías · Carcaixent",
+   "g": "rail",
+   "lat": 39.12053,
+   "lng": -0.45441,
+   "st": "64103"
+  },
+  {
+   "id": "est_alzira",
+   "n": "Cercanías · Alzira",
+   "g": "rail",
+   "lat": 39.15315,
+   "lng": -0.4506,
+   "st": "64104"
+  },
+  {
+   "id": "est_algemesi",
+   "n": "Cercanías · Algemesí",
+   "g": "rail",
+   "lat": 39.19315,
+   "lng": -0.44092,
+   "st": "64105"
+  },
+  {
+   "id": "est_benifaio",
+   "n": "Cercanías · Benifaió",
+   "g": "rail",
+   "lat": 39.2843,
+   "lng": -0.42995,
+   "st": "64107"
+  },
+  {
+   "id": "est_silla",
+   "n": "Cercanías · Silla",
+   "g": "rail",
+   "lat": 39.36195,
+   "lng": -0.41498,
+   "st": "64200"
+  },
+  {
+   "id": "est_catarroja",
+   "n": "Cercanías · Catarroja",
+   "g": "rail",
+   "lat": 39.40004,
+   "lng": -0.39922,
+   "st": "64201"
+  },
+  {
+   "id": "est_massanassa",
+   "n": "Cercanías · Massanassa",
+   "g": "rail",
+   "lat": 39.40919,
+   "lng": -0.39531,
+   "st": "64202"
+  },
+  {
+   "id": "est_alfafar_benetusser",
+   "n": "Cercanías · Alfafar-Benetússer",
+   "g": "rail",
+   "lat": 39.42242,
+   "lng": -0.3926,
+   "st": "64203"
+  },
+  {
+   "id": "est_albal",
+   "n": "Cercanías · Albal",
+   "g": "rail",
+   "lat": 39.39184,
+   "lng": -0.40263,
+   "st": "64210"
+  },
+  {
+   "id": "est_nord",
+   "n": "Cercanías · València Nord",
+   "g": "rail",
+   "lat": 39.46693,
+   "lng": -0.37722,
+   "st": "65000"
+  },
+  {
+   "id": "est_roca_cuper",
+   "n": "Cercanías · Roca-Cúper",
+   "g": "rail",
+   "lat": 39.52621,
+   "lng": -0.32384,
+   "st": "65001"
+  },
+  {
+   "id": "est_la_font_de_sant_lluis",
+   "n": "Cercanías · València · La Font de Sant Lluís",
+   "g": "rail",
+   "lat": 39.44161,
+   "lng": -0.37142,
+   "st": "65002"
+  },
+  {
+   "id": "est_cabanyal",
+   "n": "Cercanías · València · Cabanyal",
+   "g": "rail",
+   "lat": 39.47025,
+   "lng": -0.33468,
+   "st": "65003"
+  },
+  {
+   "id": "est_albuixech",
+   "n": "Cercanías · Albuixech",
+   "g": "rail",
+   "lat": 39.54352,
+   "lng": -0.32055,
+   "st": "65005"
+  },
+  {
+   "id": "est_massalfassar",
+   "n": "Cercanías · Massalfassar",
+   "g": "rail",
+   "lat": 39.55575,
+   "lng": -0.31831,
+   "st": "65006"
+  },
+  {
+   "id": "est_el_puig",
+   "n": "Cercanías · El Puig",
+   "g": "rail",
+   "lat": 39.5883,
+   "lng": -0.31166,
+   "st": "65007"
+  },
+  {
+   "id": "est_pucol",
+   "n": "Cercanías · Puçol",
+   "g": "rail",
+   "lat": 39.62054,
+   "lng": -0.30311,
+   "st": "65008"
+  },
+  {
+   "id": "est_sagunt",
+   "n": "Cercanías · Sagunt",
+   "g": "rail",
+   "lat": 39.6758,
+   "lng": -0.27154,
+   "st": "65200"
+  },
+  {
+   "id": "est_loriguilla_reva",
+   "n": "Cercanías · Lorigüilla-Reva",
+   "g": "rail",
+   "lat": 39.48578,
+   "lng": -0.5674,
+   "st": "66209"
+  },
+  {
+   "id": "est_aldaia",
+   "n": "Cercanías · Aldaia",
+   "g": "rail",
+   "lat": 39.46112,
+   "lng": -0.46325,
+   "st": "66211"
+  },
+  {
+   "id": "est_sant_isidre",
+   "n": "Cercanías · València · Sant Isidre",
+   "g": "rail",
+   "lat": 39.45022,
+   "lng": -0.40398,
+   "st": "66212"
+  },
+  {
+   "id": "est_xirivella_alqueries",
+   "n": "Cercanías · Xirivella-Alqueries",
+   "g": "rail",
+   "lat": 39.46263,
+   "lng": -0.43222,
+   "st": "66214"
+  },
+  {
+   "id": "est_gilet",
+   "n": "Cercanías · Gilet",
+   "g": "rail",
+   "lat": 39.6794,
+   "lng": -0.32065,
+   "st": "67223"
+  },
+  {
+   "id": "est_el_romani",
+   "n": "Cercanías · El Romaní",
+   "g": "rail",
+   "lat": 39.30298,
+   "lng": -0.39424,
+   "st": "69101"
+  },
+  {
+   "id": "est_sollana",
+   "n": "Cercanías · Sollana",
+   "g": "rail",
+   "lat": 39.27935,
+   "lng": -0.37931,
+   "st": "69102"
+  },
+  {
+   "id": "est_sueca",
+   "n": "Cercanías · Sueca",
+   "g": "rail",
+   "lat": 39.20585,
+   "lng": -0.30824,
+   "st": "69103"
+  },
+  {
+   "id": "est_cullera",
+   "n": "Cercanías · Cullera",
+   "g": "rail",
+   "lat": 39.17789,
+   "lng": -0.26324,
+   "st": "69104"
+  }
+ ]
+}
